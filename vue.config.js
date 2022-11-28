@@ -36,7 +36,7 @@ module.exports = {
   },
   pluginOptions: {
     'style-resources-loader': {
-      preProcessor: 'scss',
+      preProcessor: 'less',
       patterns: [
         path.resolve(__dirname, 'examples/assets/css/variables.less'),
         path.resolve(__dirname, 'style/variables.less')
