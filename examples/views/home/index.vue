@@ -1,61 +1,47 @@
 <template>
   <div class="flex-column-page-wrap pageWrap">
     Home
-
-<!--
-    <div class="common_title">多语言 使用</div>
+    <div class="common_title">iconfont && XIcon</div>
     <div class="content">
-      <a-button @click="switchLang" size="small">
-        lang: 切换
-        <AdIcon iconClass="ad-frozen"/>
-        <AdIcon iconClass="ad-warning"/>
-        {{$i18n.locale}}
+      <!--  单色样式类  -->
+      <span class="xpb-iconfont xpb-yichang"></span>
+      <XIcon iconClass="xpb-diyiming"></XIcon>
+      <span class="xpb-iconfont xpb-no-data"></span>
+      <!--  svg  -->
+      <XIcon iconClass="xpb-no-data" @click="test"></XIcon>
+      <!--Table 操作 用： Icon按钮-->
+      <a-button class="xpb-icon-button" @click="test('row')">
+        <XIcon iconClass="xpb-no-data"></XIcon>
       </a-button>
-      <div>local文字: {{$t('route.location')}}</div>
-      <div>src/locale 文字(携带 adb前缀做区分): {{$t('adb.btn.add')}}</div>
     </div>
--->
+    <div class="common_title">暂无数据 XNoData</div>
+    <div class="content">
+      <XNoData
+        @click="$log('test....')"
+        isFull
+      >
+<!--        message="<div style='background: #f00;'>test: others</div>"-->
+        <template v-slot:extraContent>extraContent: no data</template>
+      </XNoData>
+    </div>
 
-<!--    <div class="common_title">AdInputNumber</div>
+<!--    <div class="common_title">XInputNumber</div>
     <div class="content">
       {{testNumber}}
-      <AdInputNumber disabled v-model="testNumber" :min="0" prefix="#" _controlsPosition="1"></AdInputNumber>
-      <AdInputNumber v-model="testNumber" :min="0" prefix="#" suffix="￥" size="mini" _controlsPosition="1"></AdInputNumber>
-      <AdInputNumber v-model="testNumber" :min="0" prefix="#" size="small" _controlsPosition="1"></AdInputNumber>
-      <AdInputNumber v-model="testNumber" :min="0" suffix="￥" _controlsPosition="1"></AdInputNumber>
-      <AdInputNumber size="mini" v-model="testNumber" :min="0" prefix="#" suffix="￥" _controlsPosition="1"></AdInputNumber>
-      <AdInputNumber v-model="testNumber" :min="0" style="width: 200px;" controlsPosition="1">
-        <template slot="prefix"><span class="ad-addon ad-input-number__prefix" style="background: #0f0;">prefix</span></template>
-        <template slot="suffix"><span class="ad-addon ad-input-number__suffix" style="background: #f00">suffix</span></template>
-      </AdInputNumber>
-    </div>
-    <div class="common_title">iconfont && AdIcon</div>
-    <div class="content">
-      &lt;!&ndash;  单色样式类  &ndash;&gt;
-      <span class="ad-iconfont ad-Review"></span>
-      <AdIcon iconClass="ad-checkbox_checked"></AdIcon>
-      <span class="ad-iconfont ad-checkbox_checked"></span>
-      <AdIcon iconClass="ad-checkbox"></AdIcon>
-      <span class="ad-iconfont ad-checkbox"></span>
-&lt;!&ndash;      <AdIcon iconClass="ad-checkbox"></AdIcon>&ndash;&gt;
-&lt;!&ndash;      <span class="ad-iconfont ad-radio_checked_disable"></span>&ndash;&gt;
-      <AdIcon iconClass="ad-radio_checked"></AdIcon>
-      <span class="ad-iconfont ad-radio_checked"></span>
-      <AdIcon iconClass="ad-radio"></AdIcon>
-      <span class="ad-iconfont ad-radio"></span>
-      &lt;!&ndash;  svg  &ndash;&gt;
-      <AdIcon iconClass="ad-frozen" @click="test"></AdIcon>
-      &lt;!&ndash;Table 操作 用： Icon按钮&ndash;&gt;
-      <a-tooltip placement="top" :content="$t('outboundOrder.btn.view')">
-        <a-button class="ad-icon-button" @click="test('row')">
-          <AdIcon iconClass="ad-view"></AdIcon>
-        </a-button>
-      </a-tooltip>
+      <XInputNumber disabled v-model="testNumber" :min="0" prefix="#" _controlsPosition="1"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" prefix="#" suffix="￥" size="mini" _controlsPosition="1"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" prefix="#" size="small" _controlsPosition="1"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" suffix="￥" _controlsPosition="1"></XInputNumber>
+      <XInputNumber size="mini" v-model="testNumber" :min="0" prefix="#" suffix="￥" _controlsPosition="1"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" style="width: 200px;" controlsPosition="1">
+        <template slot="prefix"><span class="ad-addon xpb-input-number__prefix" style="background: #0f0;">prefix</span></template>
+        <template slot="suffix"><span class="ad-addon xpb-input-number__suffix" style="background: #f00">suffix</span></template>
+      </XInputNumber>
     </div>
 
-    <div class="common_title">下拉Dropdown AdDropdown</div>
+    <div class="common_title">下拉Dropdown XDropdown</div>
     <div class="content">
-      <AdDropdown v-model="dropdownValue" :options="dropdownOptions" clearable modelValue>
+      <XDropdown v-model="dropdownValue" :options="dropdownOptions" clearable modelValue>
 &lt;!&ndash;        <template #btn="{ selectOption, showClear }">
           <span class="ad-dropdown-link">
             {{$log(showClear, 'showClear')}}
@@ -63,9 +49,9 @@
              <i :class="['action a-icon-arrow-down']" />
           </span>
         </template>&ndash;&gt;
-      </AdDropdown>
+      </XDropdown>
 
-      <AdDropdown v-model="dropdownValue" :options="dropdownOptions" @command="$log($event, 'command 测试')">
+      <XDropdown v-model="dropdownValue" :options="dropdownOptions" @command="$log($event, 'command 测试')">
         <template #btn="test">
           <span class="ad-dropdown-link">
             {{test}}
@@ -82,28 +68,20 @@
             -&#45;&#45;{{ opt.label }}&#45;&#45;&#45;&#45; label
           </a-dropdown-item>
         </template>
-      </AdDropdown>
+      </XDropdown>
     </div>
-    <div class="common_title">暂无数据 AdNoData</div>
+    <div class="common_title">XDraggableNest</div>
     <div class="content">
-      <AdNoData
-        @click="$log('test....')"
-        isFull
-      >
-&lt;!&ndash;        message="<div style='background: #f00;'>test: lang: {$i18n.locale}</div>"&ndash;&gt;
-        <template v-slot:extraContent>no data</template>
-      </AdNoData>
-    </div>
-    <div class="common_title">AdDraggableNest</div>
-    <div class="content">
-      <AdDraggableNest
+      <XDraggableNest
         style="background: #fafafa;"
         v-model="checkedOptions"
         :move="onMove"
       />
     </div>-->
     <div class="common_title">iconfont && XIcon</div>
-    <div class="content">...</div>
+    <div class="content">
+
+    </div>
   </div>
 </template>
 

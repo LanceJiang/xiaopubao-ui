@@ -70,7 +70,7 @@ html,body {
   overflow: auto;
 }
 #app {
-  //font-family: @xpb-family;
+  //font-family: @x-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   //text-align: center;
