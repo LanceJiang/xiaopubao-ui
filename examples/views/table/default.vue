@@ -2,6 +2,7 @@
   <div class="flex-column-page-wrap pageWrap">
     <XTable
       class="local_table"
+      :class='`cellHeightWrap_${cellHeightWrap}`'
       :searchParams.sync="searchParams"
       :list="localList"
       :total="total"
@@ -118,6 +119,7 @@ export default {
   },
   data() {
     return {
+      cellHeightWrap: '',
       formParams: {
         render: 'testXXX',
         pattern: 'input 搜索',
@@ -388,7 +390,8 @@ export default {
         // rowKey: 'value',
         loading: false,
         // showIndex: true,
-        multipleSelect: true
+        multipleSelect: true,
+        pageSizes: [20, 500, 1000, 5000, 10000, 50000, 100000]
       },
       dropdownList: ['PickingList', 'PackingList'],
       // 列配置对象
@@ -549,7 +552,18 @@ export default {
       this.queryList()
     },
     // 更新formParams
-    formParams: 'updateParams'
+    formParams: 'updateParams',
+    localColumns(columns) {
+      if (columns.find(v => v.field === 'value')) {
+        this.cellHeightWrap = 'value'
+        return
+      }
+      if (columns.find(v => v.field === 'action')) {
+        this.cellHeightWrap = 'action'
+        return
+      }
+      return 'default'
+    }
   },
   created() {
     window.test = this
@@ -687,5 +701,25 @@ export default {
 // 其他样式
 .local_table {
   padding: 0 12px;
+}
+.cellHeightWrap{
+  &_value {
+    ::v-deep {
+      .vxe-table--body .vxe-cell {
+        //height: 32 + 22;
+        height: 54px;
+        min-height: 54px;
+      }
+    }
+  }
+  &_action {
+    ::v-deep {
+      .vxe-table--body .vxe-cell {
+        //height: 32 + 22;
+        height: 32px;
+        min-height: 32px;
+      }
+    }
+  }
 }
 </style>

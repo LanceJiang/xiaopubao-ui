@@ -1,4 +1,4 @@
-const orderTotal = 888
+const orderTotal = 876543
 // 列表数据
 export const getOrders = (input) => {
   // 模拟参数
@@ -11,6 +11,7 @@ export const getOrders = (input) => {
     console.time('test')
     setTimeout(() => {
       console.timeEnd('test')
+      console.warn('模拟请求完成...')
       // 模拟数据
       const res = {
         data: Array.from({ length }).map((_, i) => {

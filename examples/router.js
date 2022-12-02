@@ -31,6 +31,10 @@ export default new Router({
         path: 'default',
         name: 'table-Default',
         component: () => import(/* webpackChunkName: "table" */ './views/table/default.vue')
+      }, {
+        path: 'vxeTableTest',
+        name: 'table-VxeTableTest',
+        component: () => import(/* webpackChunkName: "vxeTableTest" */ './views/table/vxeTableTest')
       }]
       //
       // // path: '/table',

@@ -6,7 +6,7 @@ const slot_user = (scope, h) => {
     console.log(scope, '自定义 函数渲染')
     flag = true
   }
-  return [<div style={'background: #f0f;'}>slot_user 函数渲染 slot:default </div>]
+  return [<div style={'background: #f0f;'}>slot_user 函数渲染 slot:default <a-tag>{scope.rowIndex}</a-tag> rowIndex</div>]
 }
 
 const userConfig = {
@@ -55,8 +55,33 @@ export const columns = [
       default: ''
     },
     sortable: true,
-    formatter() {
-      return 'orderNo: formatter'
+    formatter({ rowIndex }) {
+      return 'orderNo: formatter rowIndex' + rowIndex
+    }
+  },
+  {
+    t_label: `${tPrefix}orderNo`, // todo
+    title: 'testVal', // todo  同 t_label 处理方式
+    prop: 'value',
+    field: 'value',
+    minWidth: '220px',
+    sortable: true,
+    formatter({
+      cellValue, // 当前row[column.prop]
+      column,
+      row,
+      columnIndex,
+      rowIndex
+    }) {
+      return cellValue
+    },
+    slots: {
+      default: ({ row }, h) => {
+        return [
+          <a-button>{row.value}</a-button>,
+          <div><a-tag>{row.value}</a-tag></div>
+        ]
+      }
     }
   },
   ...testColumns,
@@ -69,7 +94,8 @@ export const columns = [
     slots: {
       default: 'action'
     },
-    fixed: 'right'
+    fixed: 'right',
+    minWidth: '100px'
   }
 ]
 

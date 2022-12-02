@@ -529,10 +529,10 @@ export default {
         // showOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip [纯展示数据才使用（若有其他功能加上这个 展示会有问题!!!!）]
         showHeaderOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
         showFooterOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
-        autoResize: true,
-        scrollY: {
-          gt: 10000
-        }
+        autoResize: true
+        // scrollY: {
+        //   gt: 100
+        // }
       }
       return { ...defaultOptions, rowClassName: this.customRowBgc, sortConfig: this.sortConfig, ...this.tableOptions }
     },
@@ -573,7 +573,7 @@ export default {
         multipleSelectedKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 多选被选中的状态
         multipleSelectedLabel: 'name', // 多选展示的 label
         curRowKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 高亮状态
-        pageSizes: [20, 50, 70, 100, 500, 1000, 5000], // 页面配置
+        pageSizes: [20, 50, 70, 100], // 页面配置
         // showMultipleSelectList: false, // 判断是否展示 所有被选中的项 todo delete
         showPagination: true, // 是否展示 分页栏
         loading: false, // 是否展示
