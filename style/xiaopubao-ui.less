@@ -4,7 +4,8 @@
 /* --------xiaopubao-ui 组件内部样式 Start-------- */
 @import "xiaopubao/icon.less";
 @import "xiaopubao/noData.less";
-//@import "xiaopubao/table.less";
+@import "xiaopubao/vxe-table.less"; // vxe-table 自定义主题样式设置
+@import "xiaopubao/table.less";
 
 /*@import "xiaopubao/draggableNest.less";
 @import "xiaopubao/formConfig.less";
@@ -20,7 +21,7 @@
 /* --------引用 xiaopubao-ui 根据ui/产品 用于项目的默认样式 Start-------- */
 
 // 纯icon button 样式
-/*.@{ant-prefix}icon-button {
+.@{prefix}icon-button {
   //font-size: 16px;
   font-size: 14px;
   padding: 0;
@@ -36,12 +37,14 @@
   background: transparent;
 
   &:hover {
-    background: @xpb-border-color_3;
+    color: @xpb-color_3;
+    background: @xpb-bg-color_2;
   }
 }
+/*
 
 // 带搜索icon 的input
-.@{ant-prefix}input-search {
+.@{prefix}input-search {
   flex: 1;
   margin-right: 12px;
   .el-input__icon {
@@ -53,6 +56,6 @@
   }
 }
 
-.@{ant-prefix}test {}*/
+.@{prefix}test {}*/
 
 /* --------引用 xiaopubao-ui 根据ui/产品 用于项目的默认样式 End-------- */

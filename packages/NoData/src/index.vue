@@ -1,7 +1,7 @@
 <template>
   <div v-on='$listeners' :class="['xpb-no-data-wrap', size, isFull ? 'xpb-no-data-wrap--full' : '']">
     <Icon iconClass="xpb-no-data" class="xpb-no-data-wrap__img"/>
-    <div class="message" v-html="message"/>
+    <div class="message" v-html="message || t('xpb.noData')"/>
     <!-- 额外处理 -->
     <slot name="extraContent"/>
   </div>
@@ -16,7 +16,7 @@ export default {
   props: {
     message: {
       type: String,
-      default: '暂无数据'
+      default: ''
     },
     isFull: {
       type: Boolean,

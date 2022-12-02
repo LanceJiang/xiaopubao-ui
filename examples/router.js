@@ -20,7 +20,24 @@ export default new Router({
         name: 'home-Default',
         component: Home
       }]
-    }, {
+    },
+    {
+      path: '/table',
+      name: '表格',
+      component: Layout,
+      redirect: '/default',
+      // 前缀 table-
+      children: [{
+        path: 'default',
+        name: 'table-Default',
+        component: () => import(/* webpackChunkName: "table" */ './views/table/default.vue')
+      }]
+      //
+      // // path: '/table',
+      // // name: 'table',
+      // component: () => import(/!* webpackChunkName: "table" *!/ './views/table/default.vue')
+    },
+    {
       path: '/others',
       name: '其他',
       component: Layout,
@@ -32,22 +49,7 @@ export default new Router({
         component: () => import(/* webpackChunkName: "others" */ './views/others/index.vue')
       }]
     }
-    /* {
-      path: '/table',
-      name: '表格',
-      component: Layout,
-      redirect: '/default',
-      // 前缀 table-
-      children: [{
-        path: 'default',
-        name: 'table-Default',
-        component: () => import(/!* webpackChunkName: "table" *!/ './views/table/default.vue')
-      }]
-      //
-      // // path: '/table',
-      // // name: 'table',
-      // component: () => import(/!* webpackChunkName: "table" *!/ './views/table/default.vue')
-    },
+    /*
     {
       path: '/forms',
       name: '表单',

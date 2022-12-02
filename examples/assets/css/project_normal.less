@@ -1,20 +1,15 @@
-/**若想要更多的 自定义 可参考该配置 于项目中 单独引用相关资源 进行调整(参考：project_normal)*/
 // 默认元素样式重置
-@import './reset.less';
-/*
-// 涉及ant-design-vue的全局样式主题设置
-@import './element-variables.less';*/
+@import 'xiaopubao-ui/style/reset.less';
 // 涉及ant-design-vue的全局样式类改造&&新增修饰
-//@import './xiaopubao-ant-design-vue.less'; // todo
+@import 'xiaopubao-ui/style/xiaopubao-ant-design-vue.less';
 // 涉及xiaopubao-ui的全局组件样式
-@import './xiaopubao-ui.less';
+@import 'xiaopubao-ui/style/xiaopubao-ui.less';
 
 body {
-  //background: @xpb_testColor;
   font-family: @xpb-family;
-  font-size: 12px;
+  font-size: 14px;
 }
-// xiaopubao 公用的iconfont class 类 为: xpb-iconfont
+// adber 公用的iconfont class 类 为: xpb-iconfont
 .xpb-iconfont {
   //font-size: 16px;
   font-size: inherit;

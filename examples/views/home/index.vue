@@ -34,8 +34,8 @@
       <XInputNumber v-model="testNumber" :min="0" suffix="￥" _controlsPosition="1"></XInputNumber>
       <XInputNumber size="mini" v-model="testNumber" :min="0" prefix="#" suffix="￥" _controlsPosition="1"></XInputNumber>
       <XInputNumber v-model="testNumber" :min="0" style="width: 200px;" controlsPosition="1">
-        <template slot="prefix"><span class="ad-addon xpb-input-number__prefix" style="background: #0f0;">prefix</span></template>
-        <template slot="suffix"><span class="ad-addon xpb-input-number__suffix" style="background: #f00">suffix</span></template>
+        <template slot="prefix"><span class="xpb-addon xpb-input-number__prefix" style="background: #0f0;">prefix</span></template>
+        <template slot="suffix"><span class="xpb-addon xpb-input-number__suffix" style="background: #f00">suffix</span></template>
       </XInputNumber>
     </div>
 
@@ -43,7 +43,7 @@
     <div class="content">
       <XDropdown v-model="dropdownValue" :options="dropdownOptions" clearable modelValue>
 &lt;!&ndash;        <template #btn="{ selectOption, showClear }">
-          <span class="ad-dropdown-link">
+          <span class="xpb-dropdown-link">
             {{$log(showClear, 'showClear')}}
             {{selectOption.label}}
              <i :class="['action a-icon-arrow-down']" />
@@ -53,7 +53,7 @@
 
       <XDropdown v-model="dropdownValue" :options="dropdownOptions" @command="$log($event, 'command 测试')">
         <template #btn="test">
-          <span class="ad-dropdown-link">
+          <span class="xpb-dropdown-link">
             {{test}}
              <i :class="['action a-icon-arrow-down']" />
           </span>
@@ -118,7 +118,7 @@ export default {
         },
         {
           // 多语言
-          t_label: `adb.table.action`,
+          t_label: `xpb.table.action`,
           prop: 'action',
           fixed: 'right'
         }
@@ -473,7 +473,7 @@ export default {
         console.warn('todo...... checkedOptions 提交 commit', dialog.checkedOptions)
         dialog.submitLoading = false
         // dialog.visibleChange(false)
-        this.$message.success(this.$t('adb.message.editSuccess'))
+        this.$message.success(this.$t('xpb.message.editSuccess'))
         // const forms = JSON.parse(JSON.stringify(this.formOptions.forms))
         const moreForms = this.formOptions.forms
         moreForms.forEach(v => {
