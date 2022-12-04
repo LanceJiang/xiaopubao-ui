@@ -37,7 +37,8 @@
     "vuedraggable": "^2.24.3",
     "vue-i18n": "^8.18.2",
     "vxe-table": "3.2.20",
-    "xe-utils": "^3.1.8"
+    "xe-utils": "^3.1.8",
+    "vue-ls": "^3.2.1"
   },
   "peerDependencies": {
     "ant-design-vue": "1.7.2",
@@ -47,7 +48,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vxe-table": "3.2.20",
-    "xe-utils": "^3.1.8"
+    "xe-utils": "^3.1.8",
+    "vue-ls": "^3.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

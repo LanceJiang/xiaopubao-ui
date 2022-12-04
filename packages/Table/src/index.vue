@@ -121,17 +121,18 @@
   </div>
 </template>-->
 <script lang='jsx'>
+import _ from 'lodash'
 import TableColumnsPopover from './TableColumnsPopover'
 import { xeUtils, getDeepValue } from 'xiaopubao-ui/src/utils'
-// import CustomSortPopover from './CustomSortPopover'
+import CustomSortPopover from './CustomSortPopover'
 import NoData from 'xiaopubao-ui/packages/NoData'
-import Icon from 'xiaopubao-ui/packages/Icon'
-// import NoData from './NoData' // temptemptemp todo
-console.log(Icon, 'icon')
+// import Icon from 'xiaopubao-ui/packages/Icon'
+import { t } from 'xiaopubao-ui/src/locale'
+// console.log(Icon, 'icon')
 // 针对默认的数据展示添加slot
 const slotDefault = ({ row, column }, h) => {
   const val = row[column.property]
-  const _params = getDeepValue(column, ['params']) || {}
+  const _params = getDeepValue(column, ['params']) || {} // params: { ellipsis_line, placement }
   // 如果有多行省略号处理
   const ellipsis_line = _params.ellipsis_line
   if (ellipsis_line) {
@@ -148,9 +149,8 @@ const slotDefault = ({ row, column }, h) => {
   }
   return val
 }
-
-const slotHeader_titleHelp = function($titleHelp = {}, sortableOptions, props, h) {
-  // const { titleHelp, title } = props.column
+// 可以配置 自定义筛选,  titleHelp icon提示
+const defaultRenderHeader = function($titleHelp = {}, props, h) {
   const { title } = props.column
   // 1.针对 column 配置有 titleHelp 对象的 进行默认提示处理
   const { message, icon } = $titleHelp || {}
@@ -163,20 +163,22 @@ const slotHeader_titleHelp = function($titleHelp = {}, sortableOptions, props, h
   }
   // 2.自定义筛选配置
   let CustomSort = ''
-  if (Array.isArray(sortableOptions)) {
+  const sortableConfig = getDeepValue(props.column, ['params', 'sortableConfig']) || {}
+  // 存在下拉选项 创建自定义排序
+  if (Array.isArray(sortableConfig.options)) {
+    // console.warn(sortableConfig, 'sortableOptions todo  enter')
     // 自定义筛选配置
-    const sortableConfig = getDeepValue(props, ['column', 'params', 'sortableConfig']) || {}
     CustomSort = <CustomSortPopover
       props={sortableConfig}
       searchParams={this.searchParams}
-      options={sortableOptions}
       onSubmit={this.customSortSubmit}
     />
   }
+  const _title = (title + '').includes('.') ? t(title) : title
   return [
     <div class='slot_titleHelpWrap'>
-      <a-tooltip placement='top' title={title}>
-        <span class='label'>{title}</span>
+      <a-tooltip placement='top' title={_title}>
+        <span class='label'>{_title}</span>
       </a-tooltip>
       {TitleHelp}
       {CustomSort}
@@ -215,8 +217,8 @@ const render = function(h) {
       <a-spin tip='加载中...' />
     </div>
     <div class='tableBody'>
-      {/* <vxe-toolbar class='vxeToolbar' ref='vxeToolbar'> */}
-      <vxe-toolbar class='vxeToolbar' ref='vxeToolbar'>
+      {/* todo custom */}
+      <vxe-toolbar custom class='vxeToolbar' ref='vxeToolbar'>
         <template slot='buttons'>
           <slot name='toolLeft' curPageSelectLength={curPageSelectLength} />
           <div v-show={showSelectLeft} class='selectedWrap'>已选择<span>{curPageSelectLength}</span>条</div>
@@ -281,7 +283,7 @@ const render = function(h) {
           on={tableOn}>
           <template slot='empty'>
             <NoData
-              v-show='!computedOptions.loading'
+              v-show={!computedOptions.loading}
               props={computedOptions.noData} />
           </template>
         </vxe-table>
@@ -310,7 +312,6 @@ const render = function(h) {
       }
       {/* if 判断是展示相关选中的项列表 be todo */}
     </div>
-    {false && <CustomSortPopover />}
     {/* 可以放弹窗/底部自定义 */}
     <slot />
   </div>
@@ -321,7 +322,7 @@ export default {
   componentName: 'XTable',
   components: {
     TableColumnsPopover,
-    // CustomSortPopover,
+    CustomSortPopover,
     NoData
   },
   props: {
@@ -353,7 +354,7 @@ export default {
                 const { items, _columnIndex } = args
                 // 渲染类型1： 使用渲染函数
                 // return [
-                //   h('vxe-button', {
+                //   h('a-button', {
                 //     style: {
                 //       color: 'green'
                 //     },
@@ -362,7 +363,7 @@ export default {
                 //   }, `[累计]: ${items[_columnIndex]}`)]
                 // 渲染类型2： 使用 JSX 渲染/
                 return [
-                  <vxe-button status="primary" size="mini">按钮</vxe-button>,
+                  <a-button status="primary" size="mini">按钮</a-button>,
                   <span>累计：{ items[_columnIndex] }</span>
                 ]
               }
@@ -557,7 +558,7 @@ export default {
       })
       // console.error('重新渲染生成 localColumns')
       // 优化：涉及到columns 中 column 的 slots 是 string 类型 进行 slotScope 替换的 由于引用关系 导致 渲染相互覆盖的问题
-      return _columns.concat(this.columns.filter(Boolean), showFilling ? [{
+      return _columns.concat(_.cloneDeep(this.columns.filter(Boolean)), showFilling ? [{
         title: '',
         align: 'center',
         minWidth: 0,
@@ -566,25 +567,26 @@ export default {
     },
     computedOptions() {
       const defaultOptions = {
+        // 分页器参数
+        showPagination: true, // 是否展示 分页器栏
+        pageSizes: [20, 50, 70, 100], // 页面配置
+        layouts: ['Total', 'PrevPage', 'JumpNumber', 'NextPage', 'Sizes', 'FullJump'],
+
+        // 额外table自定义参数
         showIndex: false, // 是否展示序号
         showFilling: true, // 是否默认填充空白
         showSelectPlace: 'left', // 配置列表选中 个数展示位置 (left, right) 其他类型为不展示(eg: false, none)
         multipleSelect: false, // 是否多选
-        multipleSelectedKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 多选被选中的状态
-        multipleSelectedLabel: 'name', // 多选展示的 label
-        curRowKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 高亮状态
-        pageSizes: [20, 50, 70, 100], // 页面配置
-        // showMultipleSelectList: false, // 判断是否展示 所有被选中的项 todo delete
-        showPagination: true, // 是否展示 分页栏
-        loading: false, // 是否展示
-        helpArticleId: '', // 帮助文章跳转id
-        // noData // 针对没有数据时展示 {size, message}
-        layouts: ['Total', 'PrevPage', 'JumpNumber', 'NextPage', 'Sizes', 'FullJump']
+        // multipleSelectedKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 多选被选中的状态
+        // multipleSelectedLabel: 'name', // 多选展示的 label
+        // curRowKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 高亮状态
+        loading: false, // 是否展示loading
+        noData: { size: 'middle', message: '暂无数据' } // 针对没有数据时展示 {size, message}
       }
       return {
         ...defaultOptions,
         ...this.options,
-        noData: Object.assign({ size: 'middle', message: '暂无数据' }, this.options.noData || {})
+        noData: Object.assign(defaultOptions.noData, this.options.noData || {})
       }
     },
     curPageSelectLength() {
@@ -729,15 +731,17 @@ export default {
     },
     /**
      * 对列表的 sort 进行更新（使用场景：table columns 删除 新增 替换）
-     * // sortConfs: string | { field: string | ColumnInfo, order: 'desc' | 'asc' | null } | { field: string | ColumnInfo, order?: 'desc' | 'asc' | null }[],
+     * // sortConfigs: string | { field: string | ColumnInfo, order: 'desc' | 'asc' | null } | { field: string | ColumnInfo, order?: 'desc' | 'asc' | null }[],
      * // order?: 'desc' | 'asc' | null
      */
-    handleDefaultSort(sortConfs, order) {
-      this.$vxeTable.sort(sortConfs, order)
+    handleDefaultSort(sortConfig, order) {
+      this.$vxeTable.sort(sortConfig, order)
     },
     loadColumn(columns) {
+      // 跨层级 传入 会变成 renderFunction
       const $scopedSlots = this.$scopedSlots
       const _this = this
+      // console.error(this.columns, 'columns', _this)
       // console.log('loadColumn $scopedSlots', columns, $scopedSlots)
       xeUtils.eachTree(columns, function(column) {
         // if (!column) return
@@ -794,22 +798,18 @@ export default {
           })
           // column._slotStringKeys = _slotStringKeys
         }
-        const $titleHelp = column.titleHelp // || column._titleHelp
-        delete column.titleHelp
-        // 自定义筛选配置
-        const sortableOptions = getDeepValue(column, ['params', 'sortableOptions'])
-        if (Object.keys($titleHelp || {}).length || Array.isArray(sortableOptions)) {
+        column.titleHelp && console.warn(column, 'column', JSON.stringify(column))
+        const slots_header = column.slots.header
+        if (slots_header) {
           // 若自定义过 header 将不做额外处理
-          const slots_header = column.slots.header
-          if (slots_header) {
-            process.env.NODE_ENV === 'development' && _this.$log(`当前定义的 slots:header [${slots_headerName}] 已与默认 titleHelp 提示冲突 请在 header 定义 div.slot_titleHelpWrap 添加 设置`, 'warning', 'orange')
-          } else {
-            // column._titleHelp = $titleHelp
-            column.slots.header = slotHeader_titleHelp.bind(_this, $titleHelp, sortableOptions)
-          }
+          process.env.NODE_ENV === 'development' && _this.$log(`当前定义的 slots:header [${slots_headerName}] 已与默认 titleHelp 提示冲突 请在 header 定义 div.slot_titleHelpWrap 添加 设置`, 'warning', 'orange')
+        } else {
+          const $titleHelp = column.titleHelp // || column._titleHelp
+          delete column.titleHelp
+          column.slots.header = defaultRenderHeader.bind(_this, $titleHelp)
         }
       })
-      // console.log(columns, 'columns')
+      // console.log(columns, 'columns', defaultRenderHeader, xeUtils, slotDefault)
       return this.$vxeTable.loadColumn(columns)
     },
     updateDialogVisible(bool) {

@@ -137,7 +137,9 @@ export default {
       },
       searchParams: {
         page: 1,
-        pageSize: 20
+        pageSize: 20,
+        sort_type: undefined,
+        sort: undefined
       },
       formOptions: {
         forms: [
@@ -570,6 +572,9 @@ export default {
     this.queryTableConfig()
     this.updateParams()
     // this.queryList()
+  },
+  updated() {
+    console.warn(columns, 'columns')
   },
   methods: {
     updateParams() {

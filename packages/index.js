@@ -42,6 +42,7 @@ import {
   // 表格
   Table as VXE_Table
 } from 'vxe-table' // vxe-table表格插件
+import VueStorage from 'vue-ls'
 import locale from '../src/locale'
 // import ComponentDemo from './ComponentDemo'
 import Icon from './Icon'
@@ -91,7 +92,7 @@ const version = packageJson.version
   const existIconVersion = [...d.querySelectorAll('.xpb-icon_svg')].map(v => v.getAttribute('version')).includes(version)
   if (!existIconVersion) {
     /** update 最新 iconfont(.css && .js) */
-    const origin_prefix = '//at.alicdn.com/t/c/font_3797454_wkos54f0zl'
+    const origin_prefix = '//at.alicdn.com/t/c/font_3797454_k534bjai98d'
     const link = d.createElement('link')
     link.rel = 'stylesheet'
     link.type = 'text/css'
@@ -128,6 +129,11 @@ const install = function(Vue, opts = {}) {
   // 对组件内置的提示语进行国际化翻译
   // i18n: (key, args) => i18n.t(key, args)
 
+  Vue.use(VueStorage, {
+    namespace: '', // key prefix
+    name: 'ls', // name variable Vue.[ls] or this.[$ls],
+    storage: 'local' // storage name session, local, memory
+  })
   // 表格功能
   // Vue.use(Filter)
   // .use(Edit)
@@ -166,7 +172,9 @@ const install = function(Vue, opts = {}) {
   // .use(Pulldown)
 
   // 安装表格
-  Vue.use(VXE_Table)
+  Vue.use(VXE_Table, {
+    translate: (key, value) => opts.i18n(key, value)
+  })
 
   // 给 vue 实例挂载内部对象，例如：
   // Vue.prototype.$XModal = VXETable.modal

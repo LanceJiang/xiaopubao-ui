@@ -32,6 +32,16 @@ const userConfig = {
   //   }
   // ]
 }
+export const columnSortOptions = [
+  {
+    label: '安装版本',
+    value: 'first_version'
+  },
+  {
+    label: '最新版本',
+    value: 'last_version'
+  }
+]
 const testColumns = Array.from({ length: 20 }).map((_, i) => ({
   label: `${tPrefix}test_${i}`,
   title: `${tPrefix}test_${i}`, // todo
@@ -60,12 +70,24 @@ export const columns = [
     }
   },
   {
-    t_label: `${tPrefix}orderNo`, // todo
+    // t_label: `${tPrefix}orderNo`, // todo
+    t_label: `value`, // todo
     title: 'testVal', // todo  同 t_label 处理方式
     prop: 'value',
     field: 'value',
     minWidth: '220px',
-    sortable: true,
+    // sortable: true,
+    params: {
+      // sortableOptions: columnSortOptions,
+      // 自定义筛选弹窗组件内部配置 eg
+      sortableConfig: {
+        width: '300px',
+        options: columnSortOptions
+      }
+      // sortableConfig: {
+      //   options: columnSortOptions
+      // }
+    },
     formatter({
       cellValue, // 当前row[column.prop]
       column,
