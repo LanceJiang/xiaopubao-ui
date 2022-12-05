@@ -172,9 +172,7 @@ const install = function(Vue, opts = {}) {
   // .use(Pulldown)
 
   // 安装表格
-  Vue.use(VXE_Table, {
-    translate: (key, value) => opts.i18n(key, value)
-  })
+  Vue.use(VXE_Table)
 
   // 给 vue 实例挂载内部对象，例如：
   // Vue.prototype.$XModal = VXETable.modal
