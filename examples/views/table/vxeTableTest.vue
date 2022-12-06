@@ -25,6 +25,7 @@
     height="100%"
     :loading="loading"
     :checkbox-config="{checkField: 'checked'}"
+    :scroll-y="{mode: 'wheel'}"
     >
     <template #slotHeader='{column}'>
       <span style='background: #f00;'>{{ $t(column.title) }}</span>
@@ -139,7 +140,7 @@ export default {
           },
           {
             type: 'checkbox',
-            width: '30px',
+            width: '36px',
             fixed: 'left'
           }
         ].concat(newList)
@@ -213,7 +214,7 @@ export default {
       console.log('loadColumn $scopedSlots', columns, $scopedSlots)
       if (!_this) return console.log(xeUtils, 'sss')
       this.$refs.vxeTable.loadColumn(columns)
-      /* xeUtils.eachTree(columns, function(column) {
+      xeUtils.eachTree(columns, function(column) {
         // if (!column) return
         // 对非组件级内置的 column类型 且 未定义formatter 进行默认 default处理
         if (!column.type && !column.formatter) {
@@ -255,12 +256,12 @@ export default {
               }
               _slotName = slotName
               // _slotStringKeys[SlotStrKey] = slotName
-            }/!* else if (_slotStringKeys[SlotStrKey]) {
+            }/* else if (_slotStringKeys[SlotStrKey]) {
               const slotFnKey = _slotStringKeys[SlotStrKey]
               if (slotFnKey) {
                 _slotName = slotFnKey
               }
-            } *!/
+            } */
             if (_slotName) {
               const fn = $scopedSlots[_slotName]
               setSlotFn(column.slots, type, fn, _slotName)
@@ -274,18 +275,18 @@ export default {
         const sortableOptions = getDeepValue(column, ['params', 'sortableOptions'])
         if (Object.keys($titleHelp || {}).length || Array.isArray(sortableOptions)) {
           console.log(slots_headerName, 'slots_headerName')
-          /!* // 若自定义过 header 将不做额外处理
+          /* // 若自定义过 header 将不做额外处理
           const slots_header = column.slots.header
           if (slots_header) {
             process.env.NODE_ENV === 'development' && _this.$log(`当前定义的 slots:header [${slots_headerName}] 已与默认 titleHelp 提示冲突 请在 header 定义 div.slot_titleHelpWrap 添加 设置`, 'warning', 'orange')
           } else {
             // column._titleHelp = $titleHelp
             column.slots.header = slotHeader_titleHelp.bind(_this, $titleHelp, sortableOptions)
-          } *!/
+          } */
         }
       })
       console.log(columns, 'columns')
-      return this.$refs.vxeTable.loadColumn(columns) */
+      return this.$refs.vxeTable.loadColumn(columns)
     }
   }
 }

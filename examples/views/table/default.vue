@@ -713,7 +713,7 @@ export default {
       .vxe-table--body .vxe-cell {
         //height: 32 + 22;
         height: 54px;
-        min-height: 54px;
+        min-height: 54px !important;
       }
     }
   }
@@ -722,7 +722,7 @@ export default {
       .vxe-table--body .vxe-cell {
         //height: 32 + 22;
         height: 32px;
-        min-height: 32px;
+        min-height: 32px !important;
       }
     }
   }

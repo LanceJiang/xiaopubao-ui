@@ -5,6 +5,7 @@
   "main": "lib/xiaopubao-ui.umd.min.js",
   "keywords": [
     "ant-design-vue",
+    "vxe-table",
     "xiaopubao-ui",
     "vue",
     "components"
