@@ -530,10 +530,10 @@ export default {
         // showOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip [纯展示数据才使用（若有其他功能加上这个 展示会有问题!!!!）]
         showHeaderOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
         showFooterOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
-        autoResize: true
-        // scrollY: {
-        //   gt: 100
-        // }
+        autoResize: true,
+        scrollY: {
+          gt: 10000
+        }
       }
       return { ...defaultOptions, rowClassName: this.customRowBgc, sortConfig: this.sortConfig, ...this.tableOptions }
     },
