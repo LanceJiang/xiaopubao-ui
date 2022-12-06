@@ -25,19 +25,15 @@
       </XNoData>
     </div>
 
-<!--    <div class="common_title">XInputNumber</div>
+    <div class="common_title">XInputNumber</div>
     <div class="content">
       {{testNumber}}
-      <XInputNumber disabled v-model="testNumber" :min="0" prefix="#" _controlsPosition="1"></XInputNumber>
-      <XInputNumber v-model="testNumber" :min="0" prefix="#" suffix="￥" size="mini" _controlsPosition="1"></XInputNumber>
-      <XInputNumber v-model="testNumber" :min="0" prefix="#" size="small" _controlsPosition="1"></XInputNumber>
-      <XInputNumber v-model="testNumber" :min="0" suffix="￥" _controlsPosition="1"></XInputNumber>
-      <XInputNumber size="mini" v-model="testNumber" :min="0" prefix="#" suffix="￥" _controlsPosition="1"></XInputNumber>
-      <XInputNumber v-model="testNumber" :min="0" style="width: 200px;" controlsPosition="1">
-        <template slot="prefix"><span class="xpb-addon xpb-input-number__prefix" style="background: #0f0;">prefix</span></template>
-        <template slot="suffix"><span class="xpb-addon xpb-input-number__suffix" style="background: #f00">suffix</span></template>
-      </XInputNumber>
+      <XInputNumber v-model="testNumber" />
+      <XInputNumber disabled v-model="testNumber" :min="0" addonBefore="#"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" addonBefore="#" size="small"></XInputNumber>
+      <XInputNumber v-model="testNumber" :min="0" addonBefore="#" addonAfter="￥"></XInputNumber>
     </div>
+<!--
 
     <div class="common_title">下拉Dropdown XDropdown</div>
     <div class="content">

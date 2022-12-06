@@ -217,8 +217,7 @@ const render = function(h) {
       <a-spin tip='加载中...' />
     </div>
     <div class='tableBody'>
-      {/* todo custom */}
-      <vxe-toolbar custom class='vxeToolbar' ref='vxeToolbar'>
+      <vxe-toolbar class='vxeToolbar' ref='vxeToolbar'>
         <template slot='buttons'>
           <slot name='toolLeft' curPageSelectLength={curPageSelectLength} />
           <div v-show={showSelectLeft} class='selectedWrap'>已选择<span>{curPageSelectLength}</span>条</div>
@@ -530,10 +529,10 @@ export default {
         // showOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip [纯展示数据才使用（若有其他功能加上这个 展示会有问题!!!!）]
         showHeaderOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
         showFooterOverflow: 'tooltip', // 超出内容 省略号 同时添加 tooltip // title, ellipsis
-        autoResize: true
-        // scrollY: {
-        //   gt: 100
-        // }
+        autoResize: true,
+        scrollY: {
+          gt: 10000
+        }
       }
       return { ...defaultOptions, rowClassName: this.customRowBgc, sortConfig: this.sortConfig, ...this.tableOptions }
     },
