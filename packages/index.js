@@ -48,11 +48,11 @@ import locale from '../src/locale'
 import Icon from './Icon'
 import NoData from './NoData'
 import Table from './Table'
+import InputNumber from './InputNumber'
 /* import DraggableNest from './DraggableNest'
 import FormConfig from './FormConfig'
 import FormConfigDialog from './FormConfigDialog'
 
-import InputNumber from './InputNumber'
 import Select from './Select'
 import Dropdown from './Dropdown'
 import Popover from './Popover'
@@ -71,11 +71,11 @@ const components = [
   // ComponentDemo,
   Icon,
   NoData,
-  Table
+  Table,
+  InputNumber
   // DraggableNest,
   // FormConfig,
   // FormConfigDialog,
-  // InputNumber,
   // Select,
   // Dropdown,
   // Popover,

@@ -1,0 +1,21 @@
+@import "../variables.less";
+// InputNumber 样式
+.@{prefix}input-number {
+  width: 130px;
+  &.rate100 {
+    width: 100%;
+  }
+  &.ant-input-group {
+    display: table;
+    top: 0 !important;
+  }
+  .ant-input-number {
+    min-width: 50px;
+    //width: unset;
+    width: 100%;
+    border-radius: 2px 0 0 2px;
+  }
+  .ant-input-number-focused{
+    z-index: 1
+  }
+}

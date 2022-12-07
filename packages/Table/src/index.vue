@@ -217,8 +217,7 @@ const render = function(h) {
       <a-spin tip='加载中...' />
     </div>
     <div class='tableBody'>
-      {/* todo custom */}
-      <vxe-toolbar custom class='vxeToolbar' ref='vxeToolbar'>
+      <vxe-toolbar class='vxeToolbar' ref='vxeToolbar'>
         <template slot='buttons'>
           <slot name='toolLeft' curPageSelectLength={curPageSelectLength} />
           <div v-show={showSelectLeft} class='selectedWrap'>已选择<span>{curPageSelectLength}</span>条</div>
