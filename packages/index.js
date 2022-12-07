@@ -49,6 +49,7 @@ import Icon from './Icon'
 import NoData from './NoData'
 import Table from './Table'
 import InputNumber from './InputNumber'
+import InputNumberRange from './InputNumberRange'
 /* import DraggableNest from './DraggableNest'
 import FormConfig from './FormConfig'
 import FormConfigDialog from './FormConfigDialog'
@@ -72,7 +73,8 @@ const components = [
   Icon,
   NoData,
   Table,
-  InputNumber
+  InputNumber,
+  InputNumberRange
   // DraggableNest,
   // FormConfig,
   // FormConfigDialog,

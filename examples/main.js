@@ -10,7 +10,7 @@ import XPBUI from './../packages'
 // 正式
 // import XPBUI from 'xiaopubao-ui/lib/xiaopubao-ui.umd'
 // import XPBUI from 'xiaopubao-ui'
-import 'ant-design-vue/dist/antd.css'
+// import 'ant-design-vue/dist/antd.css'
 // 默认 xiaopubao-ui 样式
 import 'xiaopubao-ui/style/index.less'
 // import '@/assets/css/project_normal.less' // 自定义相关项目配置 模拟

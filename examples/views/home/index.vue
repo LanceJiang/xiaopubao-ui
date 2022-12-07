@@ -25,13 +25,40 @@
       </XNoData>
     </div>
 
-    <div class="common_title">XInputNumber</div>
+    <div class="common_title">XInputNumber && XInputNumberRange</div>
     <div class="content">
       {{testNumber}}
       <XInputNumber v-model="testNumber" />
       <XInputNumber disabled v-model="testNumber" :min="0" addonBefore="#"></XInputNumber>
       <XInputNumber v-model="testNumber" :min="0" addonBefore="#" size="small"></XInputNumber>
       <XInputNumber v-model="testNumber" :min="0" addonBefore="#" addonAfter="￥"></XInputNumber>
+      <div style='background: #f00;height: 2px;'></div>
+      {{testNumberRangeParams}}
+      <XInputNumberRange
+        addonBefore="前缀"
+        addonAfter="后缀"
+        v-model="testNumberRangeParams"
+        v-bind="numberRangeForm"
+        @change="inputNumberRangeChange"
+        @pressEnter="inputNumberRangePressEnter"
+      ></XInputNumberRange>
+      <XInputNumberRange
+        v-model="testNumberRangeParams"
+        v-bind="numberRangeForm"
+        @change="inputNumberRangeChange"
+        @pressEnter="inputNumberRangePressEnter"
+      >
+        <template #addonAfter>
+          <a-select
+            v-model="testNumberRangeParams.testSelect"
+            style="width: 100px;"
+            placeholder="Select a person"
+          >
+            <a-select-option value="jack">Jack</a-select-option>
+            <a-select-option value="lucy">Lucy</a-select-option>
+          </a-select>
+        </template>
+      </XInputNumberRange>
     </div>
 <!--
 
@@ -120,6 +147,18 @@ export default {
         }
       ],
       testNumber: 1,
+      testNumberRangeParams: {
+        numberRangeStart: 2,
+        numberRangeEnd: 4,
+        otherXXX: 666,
+        testSelect: undefined
+      },
+      numberRangeForm: {
+        prop: 'numberRange', // (numberRangeStart,  numberRangeEnd)
+        // propStart: 'numberRange__min',
+        // propEnd: 'numberRange__max'
+        addonAfterVisible: true
+      },
       testDrawer: false,
       searchParams: {
         radio: undefined,
@@ -461,6 +500,12 @@ export default {
     }
   },
   methods: {
+    inputNumberRangeChange(val, propKey) {
+      console.error(val, propKey, 'inputNumberRangeChange val, propKey')
+    },
+    inputNumberRangePressEnter(e, propKey) {
+      console.error(e, propKey, 'inputNumberRangePressEnter e, propKey')
+    },
     selectedSettingSubmit(group, dialog) {
       // group: searchGroup 组件实例
       // dialog: 配置快捷forms 弹窗实例

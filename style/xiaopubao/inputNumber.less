@@ -2,20 +2,97 @@
 // InputNumber 样式
 .@{prefix}input-number {
   width: 130px;
+
   &.rate100 {
     width: 100%;
   }
+
   &.ant-input-group {
     display: table;
     top: 0 !important;
   }
+
   .ant-input-number {
     min-width: 50px;
     //width: unset;
     width: 100%;
     border-radius: 2px 0 0 2px;
   }
-  .ant-input-number-focused{
+
+  .ant-input-number-focused {
     z-index: 1
+  }
+}
+
+// InputNumberRange 样式
+.@{prefix}input-number-range {
+  display: flex !important;
+  top: 0 !important;
+
+  .line {
+    width: 30px;
+    border-left: 0;
+    border-right: 0;
+    pointer-events: none;
+    background-color: #fff;
+  }
+
+  &.has_addonBefore, &.has_addonAfter {
+    .ant-input-group-addon .ant-select-open .ant-select-selection,
+    .ant-input-group-addon .ant-select-focused .ant-select-selection {
+      color: unset;
+    }
+  }
+
+  // 前缀
+  &.has_addonBefore {
+    .ant-input-number {
+      border-right-color: @xpb-border-color_1;
+    }
+  }
+
+  // 后缀
+  &.has_addonAfter {
+    .xpb-input-number-range_end {
+      margin-right: 0;
+    }
+
+    //> .ant-input-group-addon:last-child {
+    //  border-left: 1px solid @xpb-border-color_1;
+    //}
+  }
+
+  & > .ant-input-group-addon {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    //line-height: 28px;
+    width: unset;
+  }
+
+  .ant-input-number {
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within,
+    &:focus-visible {
+      border-left-color: @xpb-color-primary !important;
+      border-right-color: @xpb-color-primary !important;
+      border-right-width: 1px !important;
+    }
+  }
+
+  .xpb-input-number-range_start {
+    margin-right: 0;
+
+    .ant-input-number {
+      border-right-color: #fff;
+    }
+  }
+
+  .xpb-input-number-range_end {
+    .ant-input-number {
+      border-left-color: #fff;
+    }
   }
 }

@@ -84,7 +84,7 @@ html,body {
   align-items: center;
   //line-height: 22px;
   padding: 12px 0;
-  font-size: 14px;
+  font-size: 12px;
   color: rgba(0, 0, 0, 0.85);
   &:before {
     content: '';
