@@ -5,6 +5,11 @@ module.exports = {
     port: 7777
   },
   css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true
+      }
+    },
     sourceMap: true
   },
   pages: {
@@ -16,11 +21,40 @@ module.exports = {
       title: 'xiaopubao-ui'
     }
   },
+  /* module: {
+    rules: [{
+      test: /\.less$/,
+      use: [
+        {
+          loader: 'style-loader'
+          // .use('style-loader')
+          // .loader('style-loader')
+        },
+        {
+          loader: 'css-loader'
+          // options: {
+          //   importLoaders: 2
+          // }
+        },
+        {
+          loader: 'less-loader',
+          options: {
+            // lessOptions: {
+            //   javascriptEnabled: true
+            // }
+            javascriptEnabled: true
+          }
+        }
+      ]
+    }]
+  }, */
   chainWebpack: config => {
     // vue默认@指向src目录，这里要修正为examples，另外新增一个~指向packages
     config.resolve.alias
       .set('xiaopubao-ui', path.resolve(''))
       .set('@', path.resolve('examples'))
+
+    // todo set ant-vue less options todo...
 
     // packages和examples目录需要加入编译
     config.module
@@ -32,7 +66,26 @@ module.exports = {
       .tap(options => {
         // 修改它的选项...
         return options
-      })
+      }).end()
+
+    /* // 配置 less
+    config.module
+      .rule('less')
+      .test(/\.less/)
+      .use('style-loader')
+      .loader('style-loader')
+      .end()
+      .use('css-loader')
+      .loader('css-loader')
+      .end()
+      .use('less-loader')
+      .loader('less-loader')
+      .options({
+        javascriptEnabled: true,
+        lessOptions: {
+          javascriptEnabled: true
+        }
+      }).end() */
   },
   pluginOptions: {
     'style-resources-loader': {

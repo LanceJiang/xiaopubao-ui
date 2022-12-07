@@ -65,12 +65,12 @@
 // table 样式
 .@{prefix}table-warp {
   position: relative;
-  z-index: 0;
+  //z-index: 0;
   padding: 0 12px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  //width: 100%;
+  width: 100%;
   height: 100%;
   min-height: 0;
   background: #fff;
@@ -92,7 +92,7 @@
     flex-direction: column;
     .vxeToolbar { // .vxe-toolbar 同级
       padding-top: 12px;
-      margin-bottom: 12px;
+      padding-bottom: 12px;
       height: auto;
       align-items: flex-start;
       .selectedWrap {
@@ -102,7 +102,7 @@
         line-height: 30px;
         color: rgba(0, 0, 0, .45);
         span {
-          color: #007bfc;
+          color: @xpb-color-primary;
           font-weight: 600;
           padding: 0 3px;
         }
@@ -117,9 +117,10 @@
         display: flex;
         flex-wrap: wrap;
       }
-      /*.vxe-tools--wrapper {
+      .vxe-tools--wrapper {
+        //align-self: flex-end;
         align-self: flex-start;
-      }*/
+      }
       .toolRight {
         // 兼容当搜索组件放置在 toolLeft 的时候
         display: flex;
@@ -130,7 +131,7 @@
           &:hover,
           &:focus,
           &:active,&.active {
-            color: #007bfc;
+            color: @xpb-color-primary;
           }
           //& + .ant-btn {
           margin-left: 8px;
@@ -309,7 +310,7 @@
       // 兼容 treeConfig  > ( > ) iconfont icon-minus_square
       //transform: translateY(-2px);
       &:hover {
-        color: #007BFC;
+        color: @xpb-color-primary;
       }
     }
     .vxe-table--empty-placeholder {
