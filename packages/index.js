@@ -51,11 +51,11 @@ import NoData from './NoData'
 import Table from './Table'
 import InputNumber from './InputNumber'
 import InputNumberRange from './InputNumberRange'
+import Select from './Select'
 /* import DraggableNest from './DraggableNest'
 import FormConfig from './FormConfig'
 import FormConfigDialog from './FormConfigDialog'
 
-import Select from './Select'
 import Dropdown from './Dropdown'
 import Popover from './Popover'
 import CustomRender from './CustomRender'
@@ -75,11 +75,11 @@ const components = [
   NoData,
   Table,
   InputNumber,
-  InputNumberRange
+  InputNumberRange,
+  Select
   // DraggableNest,
   // FormConfig,
   // FormConfigDialog,
-  // Select,
   // Dropdown,
   // Popover,
   // CustomRender,

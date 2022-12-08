@@ -90,7 +90,6 @@
 <script>
 import { t } from 'xiaopubao-ui/src/locale'
 import Draggable from 'vuedraggable'
-// import { editModuleListConfigObj, getModuleListConfigObj } from '@/services/Common'
 import Locale from 'xiaopubao-ui/src/mixins/locale'
 
 const Draggable_Nest = {
