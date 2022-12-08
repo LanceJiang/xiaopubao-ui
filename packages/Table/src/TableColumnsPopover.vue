@@ -1,10 +1,11 @@
+<!-- 多语言支持 需要调整todo -->
 <template>
   <a-popover
     :trigger="['click']"
     :visible="comp_visible"
     @visibleChange="visibleChange"
     :getPopupContainer="getPopupContainer"
-    overlayClassName='customColumnPopover'
+    overlayClassName='xpb-column-popover'
     :placement="placement">
     <slot><a-button>自定义列</a-button></slot>
     <template slot="content">
@@ -13,7 +14,7 @@
         <header class="header">
           <slot name="title">{{title}}</slot>
         </header>
-        <div :class="{ _contentWrap: true, '_contentWrap-sort': sortable}">
+        <div :class="{ 'xpb-column-popover_content': true, 'xpb-column-popover_content-sort': sortable}">
           <header class="header">
             选择字段
 
@@ -665,208 +666,3 @@ export default {
   }
 }
 </script>
-
-<style lang='less'>
-.customColumnPopover {
-  .ant-popover-inner-content {
-    width: 750px;
-    padding: 0;
-  }
-}
-</style>
-<style lang='less' scoped>
-.customColumnPopover {
-  z-index: 9999;
-  ._contentWrap {
-    position: relative;
-    padding-bottom: 10px;
-    min-height: 300px;
-    transition: all 20ms ease-in;
-    .header {
-      height: 40px;
-      border-top: 1px solid #e9e9e9;
-      border-bottom: 1px solid #e9e9e9;
-      background: #f6f6f6;
-      color: rgba(0, 0, 0, .85);
-      font-size: 14px;
-    }
-    .leftBox {
-      padding: 0 16px;
-      min-height: 240px;
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-    &._contentWrap-sort {
-      padding-right: 182px;
-    }
-    .rightBox {
-      position: absolute;
-      right: 0;
-      top: 0;
-      display: flex;
-      flex-direction: column;
-      width: 182px;
-      height: 100%;
-      border-left: 1px solid #e9e9e9;
-      &::v-deep {
-        //.flip-list {
-        //  transition: all 0.3s ease-in-out;
-        //}
-        //.flip-list-move {
-        //  transition: transform 0.3s;
-        //}
-        .no-move {
-          transition: transform 0s;
-        }
-        // 拖动时候的样式
-        .ghost {
-          //opacity: 0.5;
-          //background: rgba(87, 129, 244, .2);
-          //box-shadow: 1px 1px 5px 2px rgb(0 0 0 / 15%);
-          //cursor: move;
-          //box-shadow: #007bfc 0 0 6px -2px inset;
-          //background: #f00;
-          box-shadow: 1px 1px 5px 2px rgba(0,0,0,.15);
-          cursor: move;
-          transition: .18s ease;
-        }
-        .chosen {
-          box-shadow: 1px 1px 5px 2px rgba(0,0,0,.15);
-        }
-        .list-group {
-          padding-left: 8px;
-          //padding-right: 16px;
-          flex: 1;
-          width: 100%;
-          overflow-y: auto;
-          .list-group-item {
-            .itemWrap {
-              display: flex;
-              align-items: center;
-              line-height: 28px;
-              padding-right: 4px;
-              color: #333;
-              font-size: 12px;
-              cursor: pointer;
-              transition: .18s ease;
-              width: 100%;
-              // 不能拖动 不能删除
-              &.disabled {
-                color: rgba(0, 0, 0, 0.25);
-                cursor: not-allowed;
-                &.ghost {
-                  background: unset;
-                }
-                & > .dragEl {
-                  cursor: not-allowed;
-                }
-                opacity: unset;
-                box-shadow: none;
-                .disabled_fixed {
-                  width: 28px;
-                  margin-left: auto;
-                  cursor: pointer;
-                  color: #007bfc;
-                }
-              }
-              .dragEl {
-                font-size: 16px;
-                cursor: move;
-                margin-right: 8px;
-              }
-              .label_txt{
-                display: inline-block;
-                flex: 1;
-                //width: 80%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-              & > .delEl {
-                display: none;
-                margin-left: auto;
-              }
-              &:not(.disabled):hover {
-                color: #007bfc;
-                & > .delEl {
-                  display: inline-block;
-                }
-              }
-            }
-          }
-        }
-      }
-      .list-group_empty {
-        position: absolute;
-        left: 0;
-        top: 50px;
-        width: 100%;
-        padding-top: 20px;
-        text-align: center;
-      }
-    }
-  }
-  .checkGroup {
-    width: 100%;
-    padding: 0;
-    display: block;
-    //flex-wrap: wrap;
-    /deep/ .ant-checkbox-wrapper {
-      color: rgba(0, 0, 0, 0.85);
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      width: 32%;
-      min-width: 32%;
-      max-width: 32%;
-      margin-left: 0;
-      margin-right: 8px;
-      padding-top: 8px;
-      &:nth-child(3n + 3) {
-        margin-right: 0;
-      }
-      span:nth-of-type(2){
-        display: inline-block;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        transform: translateY(-1px);
-      }
-    }
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    height: 50px;
-    font-size: 16px;
-    color: #000;
-  }
-  .boxWrap {
-    padding-top: 8px;
-    &.no-padding{
-      padding-top: 0;
-    }
-    .title {
-      padding: 8px 0;
-      &_checkBox {
-        //display: flex;
-        //align-items: center;
-        //justify-content: space-between;
-        font-size: 12px;
-        color: #000;
-        font-weight: bold;
-        ///deep/.ant-checkbox {
-        //  top: 0;
-        //}
-      }
-    }
-  }
-  .footer {
-    padding: 8px 16px;
-    border-top: 1px solid #e9e9e9;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>

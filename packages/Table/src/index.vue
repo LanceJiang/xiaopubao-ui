@@ -2,126 +2,7 @@
  申明： 本组件通过 vxe-table 插件 兼容目前项目 修整
  相关配置参考： https://xuliangzhan_admin.gitee.io/vxe-table/v3/#/table/api
  -->
-<!--<template>
-  <div class="xpb-table-warp">
-    <div v-show="computedOptions.loading" class="tableLoading">
-      <a-spin tip="加载中..."/>
-    </div>
-    <div class="tableBody">
-      <vxe-toolbar class="vxeToolbar" ref="vxeToolbar">
-        <template #buttons>
-          <slot name="toolLeft" :curPageSelectLength="curPageSelectLength"/>
-          <div v-show="showSelectLeft" class="selectedWrap">已选择<span>{{ curPageSelectLength }}</span>条</div>
-        </template>
-        <div class="toolRight" slot="tools">
-          <div v-show="showSelectRight" class="selectedWrap">已选择<span>{{ curPageSelectLength }}</span>条</div>
-          <slot name="toolRightUp"/>
-          &lt;!&ndash; localStorage 存储型 提示 文句 &ndash;&gt;
-          <template v-if="tipMessage.message">
-            &lt;!&ndash; 关闭一次过后 &ndash;&gt;
-            <a-tooltip v-if="tipMessage_hidden" placement="rightTop">
-              <template slot="title">
-                <span v-html="tipMessage.message" />
-              </template>
-              <a-button class="data-btn icon-button"><i class="xpb-iconfont xpb-data"></i></a-button>
-            </a-tooltip>
-            &lt;!&ndash; 未操作时 &ndash;&gt;
-            <a-tooltip v-else :getPopupContainer="(triggerNode) => triggerNode.parentNode" :overlayStyle="{ 'max-width': 'max-content' }" visible placement="left">
-              <template slot="title">
-                <div style="display: flex; align-items: flex-start;">
-                  <span v-html="tipMessage.message"/>
-                  <i class="xpb-iconfont xpb-close" style="cursor: pointer;font-size: 12px;" @click="closeTipMessage"></i>
-                </div>
-              </template>
-              <a-button class="data-btn icon-button"><i class="xpb-iconfont xpb-data"></i></a-button>
-            </a-tooltip>
-          </template>
-
-          <a-tooltip v-if="toolsIcon.includes('refresh')">
-            <template slot="title">刷新</template>
-            <a-button class="refresh-btn icon-button" @click="refreshHandler"><i class="xpb-iconfont xpb-refresh"/></a-button>
-          </a-tooltip>
-
-          <a-tooltip v-if="toolsIcon.includes('download')">
-            <template slot="title">导出</template>
-            <a-button class="download-btn icon-button" @click="$emit('downloadHandler')"><i class="xpb-iconfont xpb-download"/></a-button>
-          </a-tooltip>
-
-          &lt;!&ndash; 额外的自定义功能按钮 slot place &ndash;&gt;
-
-          <slot name="toolRight"/>
-
-&lt;!&ndash;          <TableColumnsPopover
-            ref="tableColumnsPopover"
-            v-if="toolsIcon.includes('custom')"
-            v-bind="columnsConfig"
-            :visible.sync="customDialogVisible"
-            :submit="customColumnsSubmit"
-            @hook:mounted="tableColumnsMounted"
-          >
-            <a-button class="custom-btn">自定义列</a-button>
-          </TableColumnsPopover>&ndash;&gt;
-          &lt;!&ndash; <vxe-button type="text" icon="vxe-icon&#45;&#45;funnel" class="tool-btn">test测试</vxe-button> &ndash;&gt;
-        </div>
-      </vxe-toolbar>
-      <slot name="alertTip"></slot>
-      <div class="vxeTableParentEl">
-        <vxe-table
-          ref="vxeTable"
-          class="vxeTable"
-          :seq-config="seqConfig"
-          v-bind="localTableOptions"
-          :data="list"
-          @cell-click="cellClick"
-          @sort-change="tableSortChange"
-          :filter-config="tableOptions.filterConfig"
-          :tree-config="tableOptions.treeConfig"
-          @filter-change="filterChangeEvent"
-          @checkbox-change="checkboxChange"
-          @checkbox-all="checkboxChange"
-          @current-change="currentChange"
-          @toggle-row-expand="$emit('toggleRowExpand', $event)"
-          @hook:mounted="tableMounted"
-          @scroll="$emit('tableScroll', $event)"
-        >
-          <template #empty>
-            &lt;!&ndash;:class='`local_noDataWrap_${computedOptions.noData.size}`'&ndash;&gt;
-            <NoData
-              v-show="!computedOptions.loading"
-              v-bind="computedOptions.noData"/>
-          </template>
-        </vxe-table>
-      </div>
-    </div>
-    <div class="tableFooterWrap">
-      &lt;!&ndash; 分页器 &ndash;&gt;
-      <vxe-pager
-        v-if="total > 0 && computedOptions.showPagination"
-        border
-        size="small"
-        :page-sizes="computedOptions.pageSizes"
-        :current-page="searchParams.page"
-        :page-size="searchParams.pageSize"
-        :total="total"
-        :pager-count="computedOptions.pagerCount"
-        :auto-hidden="computedOptions.autoHidden"
-        :layouts="computedOptions.layouts"
-        @page-change="handlePageChange"
-      >
-        &lt;!&ndash; 自定义 pager_left &ndash;&gt;
-        <template v-slot:left>
-          <slot name="pagerLeft"/>
-        </template>
-      </vxe-pager>
-      &lt;!&ndash; if 判断是展示相关选中的项列表 be todo &ndash;&gt;
-    </div>
-    <CustomSortPopover v-if="false"/>
-    &lt;!&ndash; 可以放弹窗/底部自定义 &ndash;&gt;
-    <slot/>
-  </div>
-</template>-->
 <script lang='jsx'>
-import _ from 'lodash'
 import TableColumnsPopover from './TableColumnsPopover'
 import { xeUtils, getDeepValue } from 'xiaopubao-ui/src/utils'
 import CustomSortPopover from './CustomSortPopover'
@@ -189,8 +70,6 @@ const defaultRenderHeader = function($titleHelp = {}, props, h) {
 const render = function(h) {
   const {
     curPageSelectLength,
-    showSelectLeft,
-    showSelectRight,
     computedOptions,
     tipMessage,
     tipMessage_hidden,
@@ -202,16 +81,16 @@ const render = function(h) {
     searchParams
   } = this
   const tableOn = {
-    'cell-click': this.cellClick,
+    'cell-click': ($event) => this.$emit('cellClick', $event), // args: { row, rowIndex, column } 当前点选即会触发
+    'toggle-row-expand': ($event) => this.$emit('toggleRowExpand', $event),
     'sort-change': this.tableSortChange,
     'filter-change': this.filterChangeEvent,
     'checkbox-change': this.checkboxChange,
     'checkbox-all': this.checkboxChange,
     'current-change': this.currentChange,
-    'toggle-row-expand': ($event) => this.$emit('toggleRowExpand', $event),
-    'hook:mounted': this.tableMounted,
-    'scroll': ($event) => this.$emit('tableScroll', $event)
+    'hook:mounted': this.tableMounted
   }
+  const scopedSlots_toolLeft = this.$scopedSlots.toolLeft
   return <div class='xpb-table-warp'>
     <div v-show={computedOptions.loading} class='tableLoading'>
       <a-spin tip='加载中...' />
@@ -219,12 +98,9 @@ const render = function(h) {
     <div class='tableBody'>
       <vxe-toolbar class='vxeToolbar' ref='vxeToolbar'>
         <template slot='buttons'>
-          <slot name='toolLeft' curPageSelectLength={curPageSelectLength} />
-          <div v-show={showSelectLeft} class='selectedWrap'>已选择<span>{curPageSelectLength}</span>条</div>
+          {scopedSlots_toolLeft && scopedSlots_toolLeft({ curPageSelectLength })}
         </template>
         <div class='toolRight' slot='tools'>
-          <div v-show={showSelectRight} class='selectedWrap'>已选择<span>{ curPageSelectLength }</span>条</div>
-          <slot name='toolRightUp' />
           {/* localStorage 存储型 提示 文句 */}
           {
             tipMessage.message && (tipMessage_hidden ? (
@@ -263,14 +139,10 @@ const render = function(h) {
               <a-button class='custom-btn'>自定义列</a-button>
             </TableColumnsPopover>
           }
-
-          {/*! --额外的自定义功能按钮 slot place -- */}
-          <slot name='toolRight' />
         </div>
       </vxe-toolbar>
-      <slot name='alertTip'></slot>
+      {this.$slots.top}
       <div class='vxeTableParentEl'>
-        {/* scroll-y={{ mode: 'wheel' }} */}
         <vxe-table
           ref='vxeTable'
           class='vxeTable'
@@ -305,14 +177,15 @@ const render = function(h) {
         >
           {/* 自定义 pager_left */}
           <template slot='left'>
-            <slot name='pagerLeft' />
+            {this.$slots.pagerLeft ||
+              <div v-show={curPageSelectLength} class='selectedWrap'>
+                <span>{curPageSelectLength}</span>{t('xpb.table.hasChecked')}</div>}
           </template>
         </vxe-pager>)
       }
-      {/* if 判断是展示相关选中的项列表 be todo */}
     </div>
     {/* 可以放弹窗/底部自定义 */}
-    <slot />
+    {this.$slots.default}
   </div>
 }
 console.error(render, 'render')
@@ -420,7 +293,7 @@ export default {
     }, // 总数
     /**
      * table 表格的控制参数
-     * 具体配置参考 localTableOptions > defaultOptions
+     * 具体配置参考 localTableOptions > defaultTableOptions
      */
     tableOptions: {
       type: Object,
@@ -434,9 +307,7 @@ export default {
      */
     options: {
       type: Object,
-      default: () => {
-        return {}
-      }
+      default: () => ({})
     },
     /**
      * table 表格的工具栏 常用icon 展示数组 [刷新, 自定义配置列]
@@ -447,9 +318,9 @@ export default {
       default: () => ['refresh', 'custom']
     },
     // 选中行的数据
-    curRow: {
-      type: Object
-    },
+    // curRow: {
+    //   type: Object
+    // },
     tipMessage: {
       type: Object,
       default: () => ({
@@ -518,7 +389,7 @@ export default {
   },
   computed: {
     localTableOptions() {
-      const defaultOptions = {
+      const defaultTableOptions = {
         // rowId: 'id', // 唯一id
         border: false,
         resizable: true, // 是否允许拖动
@@ -534,11 +405,12 @@ export default {
           gt: 10000
         }
       }
-      return { ...defaultOptions, rowClassName: this.customRowBgc, sortConfig: this.sortConfig, ...this.tableOptions }
+      return { ...defaultTableOptions, rowClassName: this.customRowBgc, sortConfig: this.sortConfig, ...this.tableOptions }
     },
     localColumns() {
-      const { showIndex, showFilling, multipleSelect } = this.computedOptions
+      const { showIndex, multipleSelect } = this.computedOptions
       const _columns = []
+      // 多选
       multipleSelect && _columns.push({
         showHeaderOverflow: false,
         showOverflow: false,
@@ -547,22 +419,24 @@ export default {
         width: '30px',
         fixed: 'left'
       })
+      // 序号
       showIndex && _columns.push({
         type: 'seq',
-        title: '序号',
+        title: 'NO.',
         resizable: false,
         align: 'left',
         width: 60,
         fixed: 'left'
       })
-      // console.error('重新渲染生成 localColumns')
       // 优化：涉及到columns 中 column 的 slots 是 string 类型 进行 slotScope 替换的 由于引用关系 导致 渲染相互覆盖的问题
-      return _columns.concat(_.cloneDeep(this.columns.filter(Boolean)), showFilling ? [{
-        title: '',
-        align: 'center',
-        minWidth: 0,
-        slots: { default: () => '' }
-      }] : [])
+      const realColumns = this.$_.cloneDeep(this.columns.filter(Boolean))
+      // 空白格填充
+      let fillSpaceColumns = [{ minWidth: 0, slots: { default: () => '' } }]
+      if (realColumns.some(v => !v.fixed)) {
+        fillSpaceColumns = []
+      }
+      // console.error('重新渲染生成 localColumns')
+      return _columns.concat(realColumns, fillSpaceColumns)
     },
     computedOptions() {
       const defaultOptions = {
@@ -573,8 +447,6 @@ export default {
 
         // 额外table自定义参数
         showIndex: false, // 是否展示序号
-        showFilling: true, // 是否默认填充空白
-        showSelectPlace: 'left', // 配置列表选中 个数展示位置 (left, right) 其他类型为不展示(eg: false, none)
         multipleSelect: false, // 是否多选
         // multipleSelectedKey: 'id', // 根据 该值 查找当前页面数据是否包含当前数据 添加 多选被选中的状态
         // multipleSelectedLabel: 'name', // 多选展示的 label
@@ -593,12 +465,6 @@ export default {
       const curPageSelect = this.curPageSelect
       if (Array.isArray(curPageSelect)) return curPageSelect.length
       return 0
-    },
-    showSelectLeft() {
-      return this.computedOptions.showSelectPlace === 'left' && this.curPageSelectLength
-    },
-    showSelectRight() {
-      return this.computedOptions.showSelectPlace === 'right' && this.curPageSelectLength
     }
   },
   created() {
@@ -772,39 +638,31 @@ export default {
         if (slots_key.length) {
           const slots = column.slots
           // const field = column.field
-          // const _slotStringKeys = column._slotStringKeys || {}
           slots_key.map(type => {
             // 如果是 string 类型 使用 slotScope
             const slotName = slots[type]
             let _slotName = ''
-            // const SlotStrKey = `${field}_${type}`
             if (typeof slotName === 'string') {
               if (type === 'header') {
                 slots_headerName = slotName
               }
               _slotName = slotName
-              // _slotStringKeys[SlotStrKey] = slotName
-            }/* else if (_slotStringKeys[SlotStrKey]) {
-              const slotFnKey = _slotStringKeys[SlotStrKey]
-              if (slotFnKey) {
-                _slotName = slotFnKey
-              }
-            } */
+            }
             if (_slotName) {
               const fn = $scopedSlots[_slotName]
               setSlotFn(column.slots, type, fn, _slotName)
             }
           })
-          // column._slotStringKeys = _slotStringKeys
         }
         column.titleHelp && console.warn(column, 'column', JSON.stringify(column))
         const slots_header = column.slots.header
+        const $titleHelp = column.titleHelp // || column._titleHelp
+        delete column.titleHelp
         if (slots_header) {
           // 若自定义过 header 将不做额外处理
-          process.env.NODE_ENV === 'development' && _this.$log(`当前定义的 slots:header [${slots_headerName}] 已与默认 titleHelp 提示冲突 请在 header 定义 div.slot_titleHelpWrap 添加 设置`, 'warning', 'orange')
+          $titleHelp && process.env.NODE_ENV === 'development' && _this.$log(`当前定义的 slots:header [${slots_headerName}] 已与默认 titleHelp 提示冲突 请在 header 定义 div.slot_title-wrap 添加 设置`, 'warning', 'orange')
         } else {
-          const $titleHelp = column.titleHelp // || column._titleHelp
-          delete column.titleHelp
+          // if (!column.type)
           column.slots.header = defaultRenderHeader.bind(_this, $titleHelp)
         }
       })
@@ -875,13 +733,6 @@ export default {
       this.$emit('update:curRow', args.row)
       // 选中当前列 触发
       this.$emit('currentChange', args)
-    },
-    // 当前点选即会触发
-    cellClick(args) {
-      // { row, rowIndex, column }
-      // // 更新当前选中行
-      // this.$emit('update:curRow', args.row)
-      this.$emit('cellClick', args)
     },
     // 可用于父级 通过 ref 获取该实例 手动切换
     toggleCheckboxRowByIndex(index, bool) {

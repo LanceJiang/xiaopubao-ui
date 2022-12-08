@@ -68,8 +68,8 @@ export const getTableConfig = (input) => {
           t_label: 'outboundOrder.table.userOld'
           // fixed: true // boolean string
         }, {
-          prop: 'orderNo2',
-          field: 'orderNo2',
+          prop: 'value',
+          field: 'value',
           t_label: 'outboundOrder.table.orderNo2'
           // fixed: true // boolean string
         }]

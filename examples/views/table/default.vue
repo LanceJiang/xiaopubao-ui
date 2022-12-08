@@ -7,6 +7,7 @@
       :list="localList"
       :total="total"
       :options="options"
+      :tableOptions="tableOptions"
       :columns="localColumns"
       :checkedOptions.sync="checkedOptions"
       :columnsConfig="curColumnsConfig"
@@ -394,6 +395,10 @@ export default {
         // showIndex: true,
         multipleSelect: true,
         pageSizes: [20, 500, 1000, 5000, 10000, 50000, 100000]
+      },
+      tableOptions: {
+        // 虚拟滚动 模式配置 (建议使用)
+        scrollY: { mode: 'wheel' }
       },
       dropdownList: ['PickingList', 'PackingList'],
       // 列配置对象

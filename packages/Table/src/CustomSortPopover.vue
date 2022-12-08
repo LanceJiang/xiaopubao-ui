@@ -1,15 +1,16 @@
+<!-- 多语言支持 需要调整todo -->
 <template>
   <a-popover
-    overlayClassName="customSortPopover"
+    overlayClassName="xpb-custom-sort-popover"
     :trigger="['click']"
     :visible="localVisible"
     @visibleChange="visibleChange"
     placement="bottom">
     <i :class='["xpb-iconfont xpb-custom-sort", localActive ? "active" : ""]'/>
     <template slot="content">
-      <div class="customSortPopoverContentWrap" :style='widthStyle'>
+      <div class="xpb-custom-sort-popover-content-wrap" :style='widthStyle'>
         <slot><div class='title'>设置排序条件</div></slot>
-        <div class='customSortPopoverContentWrap_content'>
+        <div class='xpb-custom-sort-popover-content-wrap_content'>
           <!-- 排序条件 -->
           <a-select
             class='local_select'
@@ -44,7 +45,6 @@
     </template>
   </a-popover>
 </template>
-
 <script>
 // 自定义 列表排序 popover 弹窗
 export default {
@@ -186,42 +186,3 @@ export default {
   }
 }
 </script>
-<style lang='less'>
-.xpb-iconfont.xpb-custom-sort {
-  color: #c0c4cc !important;
-  &:hover,
-  &.active {
-    color: @xpb-color-primary !important;
-  }
-}
-.customSortPopoverContentWrap {
-  position: relative;
-  margin: 0;
-  text-align: left;
-  list-style-type: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 2px;
-  outline: none;
-  width: 198px;
-  .title {
-    padding-bottom: 8px;
-    color: rgba(0,0,0,0.45);
-  }
-  &_content {
-    display: flex;
-    .local_select {
-      width: calc(100% - 123px);
-      //flex: 1;
-      margin-right: 12px;
-    }
-    //.local_radioWrap {
-    //  width: 111px;
-    //}
-  }
-  .footer {
-    padding-top: 10px;
-    text-align: right;
-  }
-}
-</style>

@@ -1,4 +1,5 @@
 import packageJson from '../package.json'
+import lodash from 'lodash/lodash.min'
 import {
   // 全局对象
   VXETable,
@@ -176,12 +177,14 @@ const install = function(Vue, opts = {}) {
   // 安装表格
   Vue.use(VXE_Table)
 
-  // 给 vue 实例挂载内部对象，例如：
+  // 给 vue 实例挂载内部对象
   // Vue.prototype.$XModal = VXETable.modal
   // Vue.prototype.$XPrint = VXETable.print
   // Vue.prototype.$XSaveFile = VXETable.saveFile
   // Vue.prototype.$XReadFile = VXETable.readFile
 
+  // 挂载 lodash 操作
+  Vue.prototype.$_ = lodash
   // 页面$log 打印
   Vue.prototype.$log = $log
 }
