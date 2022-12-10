@@ -229,7 +229,7 @@
     flex-direction: column;
     .vxeToolbar { // .vxe-toolbar 同级
       padding-top: 12px;
-      padding-bottom: 12px;
+      //padding-bottom: 12px;
       height: auto;
       align-items: flex-start;
       .vxe-buttons--wrapper {
@@ -240,11 +240,11 @@
         //align-self: flex-end;
         align-self: flex-start;
       }
-      .toolRight {
+      .tool-right {
         // 兼容当搜索组件放置在 toolLeft 的时候
         display: flex;
         align-items: center;
-        //padding-bottom: 12px;
+        margin-bottom: 12px;
         > .ant-btn {
           color: rgba(0, 0, 0, 0.45);
           &:hover,

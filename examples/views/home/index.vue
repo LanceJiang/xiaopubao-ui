@@ -506,38 +506,6 @@ export default {
     inputNumberRangePressEnter(e, propKey) {
       console.error(e, propKey, 'inputNumberRangePressEnter e, propKey')
     },
-    selectedSettingSubmit(group, dialog) {
-      // group: searchGroup 组件实例
-      // dialog: 配置快捷forms 弹窗实例
-      dialog.submitLoading = true
-      setTimeout(() => {
-        console.warn('todo...... checkedOptions 提交 commit', dialog.checkedOptions)
-        dialog.submitLoading = false
-        // dialog.visibleChange(false)
-        this.$message.success(this.$t('xpb.message.editSuccess'))
-        // const forms = JSON.parse(JSON.stringify(this.formOptions.forms))
-        const moreForms = this.formOptions.forms
-        moreForms.forEach(v => {
-          v.isMore = true
-        })
-        const defaultForms = dialog.checkedOptions.reduce((items, cur) => {
-          const idx = moreForms.findIndex(v => v.prop === cur.prop)
-          if (idx > -1) {
-            // forms 内删除 确定的快捷方式
-            const [item] = moreForms.splice(idx, 1)
-            item.isMore = false
-            // defaultForms 内添加 该item
-            items.push(item)
-          }
-          return items
-        }, [])
-        // 重置 formOptions.forms
-        this.formOptions.forms = defaultForms.concat(moreForms)
-
-        // group.selectedSettingVisible = false
-        group.selectedSettingVisibleChange(false)
-      }, 500)
-    },
     test() {
       console.error('test...')
     },

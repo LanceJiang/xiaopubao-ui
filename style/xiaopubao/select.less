@@ -52,31 +52,26 @@
       // 若可以清空的情况下
       .has_allowClear {
         // 箭头
-        .ec-select_arrows.show {
+        .xpb-select_arrows.show {
           display: none;
         }
 
         // 清除按钮展示
-        .ec-select_clear {
+        .xpb-select_clear {
           opacity: 1;
           display: block;
         }
       }
 
-      border-color: @base-color;
+      border-color: @xpb-color-primary;
     }
 
-    &.is-open {
-      border-color: @base-color;
-      outline: 0;
-      box-shadow: 0 0 0 2px fade(@base-color, 20%);
-    }
 
-    .ec-select_placeholder {
+    .xpb-select_placeholder {
       color: rgba(0, 0, 0, 0.45);
     }
 
-    .ec-select_clear {
+    .xpb-select_clear {
       display: none;
       opacity: 0;
       line-height: 28px;
@@ -84,11 +79,23 @@
       color: rgba(0, 0, 0, 0.25)
     }
 
-    .ec-select_operate {
-      .ec-select_arrows {
+    .xpb-select_operate {
+      .xpb-select_arrows {
         display: block;
         transition: all 0.3s;
         color: rgba(0, 0, 0, 0.25);
+        transform: rotate(0);
+      }
+    }
+
+    &--open {
+      border-color: @xpb-color-primary;
+      outline: 0;
+      box-shadow: 0 0 0 2px fade(@xpb-color-primary, 20%);
+      .xpb-select_operate {
+        .xpb-select_arrows {
+          transform: rotate(180deg);
+        }
       }
     }
   }
@@ -190,7 +197,6 @@
   white-space: nowrap;
 }
 
-.xpb-select
 .transform1 {
   transform: rotate(180deg)
 }

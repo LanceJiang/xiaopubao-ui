@@ -52,6 +52,7 @@ import Table from './Table'
 import InputNumber from './InputNumber'
 import InputNumberRange from './InputNumberRange'
 import Select from './Select'
+import SearchFormModel from './SearchFormModel'
 /* import DraggableNest from './DraggableNest'
 import FormConfig from './FormConfig'
 import FormConfigDialog from './FormConfigDialog'
@@ -59,7 +60,7 @@ import FormConfigDialog from './FormConfigDialog'
 import Dropdown from './Dropdown'
 import Popover from './Popover'
 import CustomRender from './CustomRender'
-import SearchGroup from './SearchGroup'
+
 import SearchFilterDrawer from './SearchFilterDrawer' */
 // pdf 预览
 // import PdfPreview from './PdfPreview'
@@ -76,14 +77,14 @@ const components = [
   Table,
   InputNumber,
   InputNumberRange,
-  Select
+  Select,
+  SearchFormModel
   // DraggableNest,
   // FormConfig,
   // FormConfigDialog,
   // Dropdown,
   // Popover,
   // CustomRender,
-  // SearchGroup,
   // SearchFilterDrawer
   // PdfPreview // todo 暂不做公用组件打包（pdfjsWorker.js 引入有问题 后续再说）暂时建议 src 引入 或者以该组件作为参考
 ]

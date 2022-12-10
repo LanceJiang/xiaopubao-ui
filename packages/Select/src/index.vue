@@ -6,12 +6,12 @@
       v-model="visible"
       :trigger="['click']"
     >
-      <div ref="ecSelectBox" :class="{'is-open': visible}" class="xpb-select_box" :style="{width}">
+      <div ref="ecSelectBox" :class="['xpb-select_box', visible ? 'xpb-select_box--open' : '']" :style="{width}">
         <div v-show='selectLabel.length<=0' class="xpb-select_placeholder">{{ placeholder }}</div>
         <template v-if="multiple">
           <div v-show='selectLabel.length>0' class="xpb-select_tag">
             <template v-for="(item,i) in selectLabel">
-              <a-tag v-if="i<=tagLength-1" :key="i" :title='item' class='text-overflow_ellipsis'>{{ item | strSliceEllipsis(3) }}</a-tag>
+              <a-tag v-if="i<=tagLength-1" :key="i" :title='item' class='text-overflow_ellipsis'>{{ item }}</a-tag>
             </template>
             <a-tag class='text-overflow_ellipsis' v-if="selectLabel.length>tagLength">+{{ selectLabel.length - tagLength }}...</a-tag>
           </div>
@@ -25,7 +25,7 @@
           </div>
         </template>
         <div :class='{has_allowClear: allowClear}' class="xpb-select_operate">
-          <span :class="['xpb-select_arrows',transform,selectLabel.length ? 'show' : '']">
+          <span :class="['xpb-select_arrows', selectLabel.length ? 'show' : '']">
             <a-icon type="down" />
           </span>
           <span class="xpb-select_clear" v-show="selectLabel.length" @click.stop="handleClearAll">
@@ -178,7 +178,6 @@ export default {
   },
   data() {
     return {
-      transform: '',
       visible: false,
       searchTxt: '', // 搜索词
       // selected: [], // 临时存储
@@ -222,7 +221,6 @@ export default {
   },
   watch: {
     visible(val) {
-      this.transform = val ? 'transform1' : 'transform2'
       val && this.$nextTick().then(_ => {
         (this.$refs.searchInput || { focus: () => {} }).focus()
       })

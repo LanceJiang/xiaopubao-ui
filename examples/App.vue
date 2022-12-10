@@ -1,30 +1,34 @@
 <template>
-  <div id="app" class="page-wrapper">
-    <div class="page-select">
-      选择页面：
-      <a-select :value="routeName" placeholder="请选择页面" @change="switchRoute">
-        <a-select-opt-group
-          v-for="group in $router.options.routes"
-          :key="group.name"
-          :label="group.name">
-          <a-select-option
-            v-for="item in group.children"
-            :key="group.name+item.name"
-            :value="item.name">
-            {{item.name}}
-          </a-select-option>
-        </a-select-opt-group>
-      </a-select>
+  <a-locale-provider :locale="locale">
+    <div id="app" class="page-wrapper">
+      <div class="page-select">
+        选择页面：
+        <a-select :value="routeName" placeholder="请选择页面" @change="switchRoute">
+          <a-select-opt-group
+            v-for="group in $router.options.routes"
+            :key="group.name"
+            :label="group.name">
+            <a-select-option
+              v-for="item in group.children"
+              :key="group.name+item.name"
+              :value="item.name">
+              {{item.name}}
+            </a-select-option>
+          </a-select-opt-group>
+        </a-select>
+      </div>
+      <router-view/>
     </div>
-    <router-view/>
-  </div>
+  </a-locale-provider>
 </template>
 <script>
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 export default {
   name: 'App',
   components: {},
   data() {
     return {
+      locale: zhCN,
       routeName: undefined // 'home-Default'
     }
   },

@@ -14,31 +14,13 @@
       @update:checkedOptions='updateCheckedOptions'
     >
       <template #toolLeft>
-<!--        <XSearchGroup/>-->
-<!--        todo-->
-<!--        <x-search-group
+<!--        <XSearchFormModel/>-->
+        <x-search-form-model
           v-bind="formOptions"
           v-model="formParams"
-          :selectedSettingSubmit="selectedSettingSubmit"
-          :saveFilterSubmit="saveFilterSubmit"
           :deleteTag="deleteTag">
-          <template #prepend>
-            <a-input
-              class="xpb-input-search"
-              v-model="formParams.pattern"
-              size="default"
-              :placeholder="$t('outboundOrder.filter.pattern.placeholder')"
-              clearable
-              @keyup.enter.native="updateParams"
-            >
-              <i slot="suffix" class="el-input__icon el-icon-search" @click="updateParams"/>
-            </a-input>
-          </template>
-          <template #adSelectSlot="{option, label}">
-            <div style="background: #A0AAB7;">{{label}} + {{ option.value_1 }}</div>
-          </template>
-        </x-search-group>-->
-        <a-input
+        </x-search-form-model>
+<!--        <a-input
           class="xpb-input-search"
           v-model="formParams.pattern"
           size="default"
@@ -47,7 +29,7 @@
           @keyup.enter.native="updateParams"
         >
           <i slot="suffix" class="el-input__icon el-icon-search" @click="updateParams"/>
-        </a-input>
+        </a-input>-->
       </template>
       <template #top>
         <!-- 按钮集合 -->
@@ -125,15 +107,15 @@ export default {
         render: 'testXXX',
         pattern: 'input 搜索',
         input: 'testInput',
-        adSelect: '选项1',
-        adSelectMore: '选项2',
-        adSelectMultiple: ['选项3'],
-        adSelectMultipleMore: ['选项4'],
+        xSelect: '选项1',
+        xSelectMore: '选项2',
+        xSelectMultiple: ['选项3'],
+        xSelectMultipleMore: ['选项4'],
         radio: 0,
         inputMore: 'inputMore_init',
-        dateRange: ['11/10/2022', '11/25/2022'],
-        dateRangeMore: [],
-        datePickerMore: '11/25/2022'
+        rangePicker: ['2022-11-10', '2022-11-25'],
+        rangePickerMore: [],
+        datePickerMore: '2022-11-25'
         // inputNumber: undefined
       },
       searchParams: {
@@ -143,8 +125,12 @@ export default {
         sort: undefined
       },
       formOptions: {
+        // a-form-model 相关配置
+        formModelConfig: {
+        },
+        // popWidth: '400px', // 更多的弹窗 width
         forms: [
-          {
+          /* {
             visible: true, // 只要不为false 就是 展示
             isMore: false, // 只要不为true 就是 默认展示
             prop: 'input', // 提交的 params 的字段
@@ -166,90 +152,89 @@ export default {
           {
             // visible: true, // 只要不为false 就是 展示
             // isMore: true, // 只要不为true 就是 默认展示
-            prop: 'adSelect', // 提交的 params 的字段
-            label: 'adSelect', // label 标签
-            itemType: 'adSelect', // form-item 类型
+            prop: 'xSelect', // 提交的 params 的字段
+            label: 'xSelect', // label 标签
+            itemType: 'xSelect', // form-item 类型
             labelKey: 'label_1',
             valueKey: 'value_1',
             options: Array.from({ length: 20 }).map((_, i) => {
               return {
                 value_1: '选项' + i,
-                label_1: 'adSelect单选' + i
+                label_1: 'xSelect单选' + i
               }
             }),
             // slot template（$scopedSlots）  方式1
-            slotOption: 'adSelectSlot'
+            slotOption: 'xSelectSlot'
             // slot function 方式2
             // slotOption(h, { option, label }) {
             //   return label + '_____'
             // }
-            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
+            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
           {
             // visible: true, // 只要不为false 就是 展示
             isMore: true, // 只要不为true 就是 默认展示
-            prop: 'adSelectMore', // 提交的 params 的字段
-            label: 'adSelectMore', // label 标签
-            itemType: 'adSelect', // form-item 类型
+            prop: 'xSelectMore', // 提交的 params 的字段
+            label: 'xSelectMore', // label 标签
+            itemType: 'xSelect', // form-item 类型
             labelKey: 'label_1',
             valueKey: 'value_1',
             options: Array.from({ length: 20 }).map((_, i) => {
               return {
                 value_1: '选项' + i,
-                label_1: 'adSelectMore单选' + i
+                label_1: 'xSelectMore单选' + i
               }
             })
-            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
+            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
           {
             // visible: true, // 只要不为false 就是 展示
             // isMore: true, // 只要不为true 就是 默认展示
-            prop: 'adSelectMultiple', // 提交的 params 的字段
-            label: 'adSelectMultiple', // label 标签
-            itemType: 'adSelect', // form-item 类型
+            prop: 'xSelectMultiple', // 提交的 params 的字段
+            label: 'xSelectMultiple', // label 标签
+            itemType: 'xSelect', // form-item 类型
             multiple: true,
             labelKey: 'label_1',
             valueKey: 'value_1',
             options: Array.from({ length: 20 }).map((_, i) => {
               return {
                 value_1: '选项' + i,
-                label_1: 'adSelect多选' + i
+                label_1: 'xSelect多选' + i
               }
             })
-            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
+            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
           {
             // visible: true, // 只要不为false 就是 展示
             isMore: true, // 只要不为true 就是 默认展示
-            prop: 'adSelectMultipleMore', // 提交的 params 的字段
-            label: 'adSelectMultipleMore', // label 标签
-            itemType: 'adSelect', // form-item 类型
+            prop: 'xSelectMultipleMore', // 提交的 params 的字段
+            label: 'xSelectMultipleMore', // label 标签
+            itemType: 'xSelect', // form-item 类型
             multiple: true,
             labelKey: 'label_1',
             valueKey: 'value_1',
             options: Array.from({ length: 20 }).map((_, i) => {
               return {
                 value_1: '选项' + i,
-                label_1: 'adSelectMore多选' + i
+                label_1: 'xSelectMore多选' + i
               }
             })
-            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
+            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
-          },
+          }, */
           {
             visible: true, // 只要不为false 就是 展示
             isMore: false, // 只要不为true 就是 默认展示
-            prop: 'dateRange', // 提交的 params 的字段
-            label: 'dateRange', // label 标签
-            itemType: 'datePicker', // form-item 类型
-            type: 'daterange', // form-item 类型  unlink-panels
+            prop: 'rangePicker', // 提交的 params 的字段
+            label: 'rangePicker', // label 标签
+            itemType: 'rangePicker', // form-item 类型
             change(params, options, isMore) {
               // // 模拟针对 change 事件 对 其他formItem 进行调整 (success) to do...
               // that.searchParams2.rangePicker = undefined // 测试only
@@ -259,10 +244,9 @@ export default {
           {
             visible: true, // 只要不为false 就是 展示
             isMore: true, // 只要不为true 就是 默认展示
-            prop: 'dateRangeMore', // 提交的 params 的字段
-            label: 'dateRangeMore', // label 标签
-            itemType: 'datePicker', // form-item 类型
-            type: 'daterange' // form-item 类型  unlink-panels
+            prop: 'rangePickerMore', // 提交的 params 的字段
+            label: 'rangePickerMore', // label 标签
+            itemType: 'rangePicker' // form-item 类型
           },
           {
             visible: true, // 只要不为false 就是 展示
@@ -281,11 +265,26 @@ export default {
           {
             visible: true, // 只要不为false 就是 展示
             isMore: false, // 只要不为true 就是 默认展示
+            prop: 'monthPicker', // 提交的 params 的字段
+            label: 'monthPicker', // label 标签
+            itemType: 'monthPicker' // form-item 类型
+          },
+          {
+            visible: true, // 只要不为false 就是 展示
+            isMore: true, // 只要不为true 就是 默认展示
+            prop: 'monthPickerMore', // 提交的 params 的字段
+            label: 'monthPickerMore', // label 标签
+            itemType: 'monthPicker' // form-item 类型
+          },
+          {
+            visible: true, // 只要不为false 就是 展示
+            isMore: false, // 只要不为true 就是 默认展示
             prop: 'inputNumber', // 提交的 params 的字段
             label: 'inputNumber', // label 标签
             itemType: 'inputNumber', // form-item 类型
-            prefix: '展示前缀',
-            suffix: '展示后缀',
+            addonBefore: '展示前缀',
+            // addonAfter: '展示后缀',
+            itemWidth: '190px',
             change: (val) => {
               console.log('inputNumber   change.....', val)
             }
@@ -295,11 +294,12 @@ export default {
             isMore: true, // 只要不为true 就是 默认展示
             prop: 'inputNumberMore', // 提交的 params 的字段
             label: 'inputNumberMore', // label 标签
-            itemType: 'inputNumber' // form-item 类型
+            itemType: 'inputNumber', // form-item 类型
+            addonAfter: '展示后缀'
           },
-          /* {
+          {
             // visible: true, // 只要不为false 就是 展示
-            // isMore: true, // 只要不为true 就是 默认展示
+            isMore: true, // 只要不为true 就是 默认展示
             prop: 'select', // 提交的 params 的字段
             label: 'select', // label 标签
             itemType: 'select', // form-item 类型
@@ -307,14 +307,11 @@ export default {
               { value: 0, label: '小三' },
               { value: 1, label: '小四' }
             ]
-          }, */
+          },
           {
             prop: 'radio',
             label: 'radio',
             itemType: 'radio',
-            // itemType: 'adSelect', // form-item 类型
-            // filterable: true,
-            // multiple: true,
             options: [
               { value: 0, label: '未结算' },
               { value: 1, label: '已结算' },
@@ -346,9 +343,10 @@ export default {
               const { form, params } = extendsParams
               return <div style="background: #f0f;">
                 <a-input v-model={params[form.prop]} placeholder="placeholder render"/>
-                <a-input v-model={params.others} placeholder="placeholder others"/>
               </div>
+              // <a-input v-model={params.others} placeholder="placeholder others"/>
             },
+            // todo...
             tagRender(h, { searchParams, transLabel, deleteFn }) {
               console.error(searchParams, transLabel, deleteFn, 'searchParams, label, value')
               const render = searchParams['render'] || ''
@@ -371,8 +369,8 @@ export default {
                 tag
               }
             }
-          }
-          /* {
+          },
+          {
             // isMore: true, // 只要不为true 就是 默认展示
             prop: 'inputNumberRange', // 若不添加 propStart  propEnd 自动变为 `${prop}Start` `${prop}End`
             // propStart: 'inputNumberRange_start',
@@ -384,7 +382,96 @@ export default {
             change(params, _options, isMore, propKey) {
               console.log(params, _options, isMore, propKey, 'params, _options, isMore, propKey')
             }
-          } */
+          },
+          // 复合类型_【下拉+rangePicker】 注：  【替代： SearchInfo timeSelect 类型】
+          { // 复合类型 todo...
+            // isMore: true, // 只要不为true 就是 默认展示 (暂无该类型)
+            label: 'compact_label',
+            // showLabel: true,
+            itemType: 'compact',
+            children: [
+              {
+                prop: 'compact_select&rangePicker_select',
+                label: 'compact_select&rangePicker_select',
+                itemType: 'select',
+                options: [
+                  { value: 0, label: '小三' },
+                  { value: 1, label: '小四' }
+                ],
+                // showSearch: true,
+                itemWidth: '90px'
+                // placeholder: '请选择select'
+              },
+              {
+                prop: 'compact_select&rangePicker_rangePicker',
+                label: 'compact_select&rangePicker_rangePicker',
+                itemType: 'rangePicker',
+                calendarChange: (dates) => {
+                  console.log(dates, 'test compact_select&rangePicker_ onCalendarChange')
+                }
+              }
+            ]
+          },
+          // 复合类型_【下拉+input】 注：  【替代： SearchInfo textSelect 类型】
+          {
+            // isMore: true, // 只要不为true 就是 默认展示 (暂无该类型)
+            label: 'compact_select&input',
+            // showLabel: true,
+            itemType: 'compact',
+            children: [
+              {
+                prop: 'compact_select&input_select',
+                label: 'compact_select&input_select',
+                itemType: 'select',
+                options: [
+                  { value: 0, label: '小三' },
+                  { value: 1, label: '小四' }
+                ],
+                // showSearch: true,
+                allowClear: false,
+                itemWidth: '90px'
+              },
+              {
+                prop: 'compact_select&input_input', // 提交的 params 的字段
+                label: 'compact_select&input_input', // label 标签
+                itemType: 'input',
+                itemWidth: '190px',
+                placeholder: '支持模糊搜索'
+              }
+            ]
+          },
+          // 复合类型_【下拉+inputNumberRange】 注：  【替代： SearchInfo inputGroupSelect 类型】
+          {
+            // isMore: true, // 只要不为true 就是 默认展示 (暂无该类型)
+            label: 'compact_select&inputNumberRange',
+            // showLabel: true,
+            itemType: 'compact',
+            children: [
+              {
+                prop: 'compact_select&inputNumberRange_select',
+                label: 'compact_select&inputNumberRange_select',
+                itemType: 'select',
+                options: [
+                  { value: 'impressions', label: '曝光量(Imp)' },
+                  { value: 'clicks', label: '点击量(Clicks)' },
+                  { value: 'ctr', label: 'CTR(%)' },
+                  { value: 'order_proportion', label: '广告订单占比(%)' }
+                ],
+                // showSearch: true,
+                itemWidth: '90px',
+                itemStyle: 'min-width: 90px;' // 组合后 由于设置了 display: flex 导致 width auto 缩小
+              },
+              {
+                prop: 'compact_select&inputNumberRange_inputNumberRange', // 提交的 params 的字段
+                label: 'compact_select&inputNumberRange_inputNumberRange', // label 标签
+                itemType: 'inputNumberRange',
+                placeholder: '支持模糊搜索',
+                change(params, _options, isMore, propKey) {
+                  console.log(params, _options, isMore, propKey, 'params, _options, isMore, propKey')
+                }
+              }
+            ]
+          }
         ]
       },
       list: [],
@@ -633,44 +720,6 @@ export default {
         // todo searchForms todo....
       })
     },
-    // 修改 快捷forms 的提交操作
-    selectedSettingSubmit(group, dialog) {
-      // group: searchGroup 组件实例
-      // dialog: 配置快捷forms 弹窗实例
-      dialog.submitLoading = true
-      setTimeout(() => {
-        console.warn('todo...... checkedOptions 提交 commit', dialog.checkedOptions)
-        dialog.submitLoading = false
-        // dialog.visibleChange(false)
-        this.$message.success(this.$t('xpb.message.editSuccess'))
-        // const forms = JSON.parse(JSON.stringify(this.formOptions.forms))
-        const moreForms = this.formOptions.forms
-        moreForms.forEach(v => {
-          v.isMore = true
-        })
-        const defaultForms = dialog.checkedOptions.reduce((items, cur) => {
-          const idx = moreForms.findIndex(v => v.prop === cur.prop)
-          if (idx > -1) {
-            // forms 内删除 确定的快捷方式
-            const [item] = moreForms.splice(idx, 1)
-            item.isMore = false
-            // defaultForms 内添加 该item
-            items.push(item)
-          }
-          return items
-        }, [])
-        // 重置 formOptions.forms
-        this.formOptions.forms = defaultForms.concat(moreForms)
-
-        // group.selectedSettingVisible = false
-        group.selectedSettingVisibleChange(false)
-      }, 500)
-    },
-    // 接口存储当前筛选数据 为tab
-    saveFilterSubmit(group) {
-      console.error('group, searchParams, saveFilterSubmit todo...', group, JSON.stringify(this.formParams))
-      this.$message.error('保存一个新的 tab  && 提交接口 相关交互 等做对应的模块在说')
-    },
     // 列表请求
     queryList() {
       this.options.loading = true
@@ -704,10 +753,9 @@ export default {
 </script>
 
 <style scoped lang="less">
-.pageWrap {
-  padding-top: 12px;
-  overflow: auto;
-}
+//.pageWrap {
+//  overflow: auto;
+//}
 // 其他样式
 .local_table {
   padding: 0 12px;

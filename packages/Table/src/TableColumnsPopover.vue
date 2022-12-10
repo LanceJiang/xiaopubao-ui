@@ -8,7 +8,7 @@
     overlayClassName='xpb-column-popover'
     :placement="placement">
     <slot><a-button>自定义列</a-button></slot>
-    <template slot="content">
+    <template #content>
       <a-spin :spinning="loading">
         <!-- 自定义Modal 标题 -->
         <header class="header">

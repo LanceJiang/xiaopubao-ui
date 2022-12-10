@@ -100,7 +100,7 @@ const render = function(h) {
         <template slot='buttons'>
           {scopedSlots_toolLeft && scopedSlots_toolLeft({ curPageSelectLength })}
         </template>
-        <div class='toolRight' slot='tools'>
+        <div class='tool-right' slot='tools'>
           {/* localStorage 存储型 提示 文句 */}
           {
             tipMessage.message && (tipMessage_hidden ? (
