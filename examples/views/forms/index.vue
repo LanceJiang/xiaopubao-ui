@@ -66,6 +66,40 @@
         </template>
       </XFormConfigModal>
     </div>
+    <div class="common_title">x-edit-form-popover 表单编辑外壳</div>
+    <div class="content">
+<!--      @getCurRow='getCurRow(row)'-->
+      <XEditFormPopover
+        width='300px'
+        :showFooter='false'
+      >
+        <!-- 测试 通过 XFormConfig 与 XEditFormPopover 配套使用 示例 -->
+        <XFormConfig
+          :forms="forms"
+          :form-data="columnsData"
+          :formConfig="formConfig"
+          showCancelBtn
+          @cancel='cancel_formConfig'
+          @submit='submit_formConfig'
+        />
+      </XEditFormPopover>
+      <br>
+<!--      @getCurRow='getCurRow(row)'-->
+      <XEditFormPopover
+        @cancel="cancel_formConfig"
+        @submit='submit_formConfig'
+      >
+        <!--     自定义_ 测试编辑销售额     -->
+        <XInputNumber
+          class='rate100'
+          v-model="columnsData.sum_sale_amount"
+          :precision="2"
+          :min="1"
+          :max="1000000"
+          placeholder="请输入金额"
+          :addonAfter="columnsData.current_currency"/>
+      </XEditFormPopover>
+    </div>
   </div>
 </template>
 
@@ -79,6 +113,7 @@ export default {
   data() {
     // const _this = this
     return {
+      columnsData: {},
       formData: {
         test1_select: 'test1_2'
       },
@@ -323,6 +358,22 @@ export default {
     }
   },
   methods: {
+    cancel_formConfig(cancelFn) {
+      // 嵌套了 formConfig 才有cancelFn
+      console.log(cancelFn, 'cancelFn')
+      cancelFn && cancelFn() // 关闭弹窗
+    },
+    submit_formConfig(params, submitFn) {
+      // 嵌套了 formConfig 才有 submitFn
+      // params: form组件最终的 值对象
+      // submitFn: EditPopover 组件 provide 的 内置方法
+      console.log(params, submitFn, 'params, submitFn')
+      // this.options.loading = true
+      const res = { ...this.columnsData, params }
+      console.log(res, '提交的值 todo...')
+      this.$message.success('假设 操作成功.... todo')
+      submitFn && submitFn() // 关闭弹窗
+    },
     serviceChange(value, options, params) {
       console.error(value, options, params, 'value, options, params')
       // 重置账号

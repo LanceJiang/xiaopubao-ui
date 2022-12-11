@@ -449,7 +449,6 @@ export default {
     cancelHandler() {
       // parentCancel 仅对 有 注入 $formParent 的外壳组件生效
       const parentCancel = getDeepValue(this.$formParent, ['cancelHandler'])
-      // todo 需要 结合 EditPopover 验证
       this.$emit('cancel', parentCancel)
       // this.cancel && this.cancel(parentCancel)
     },
@@ -460,7 +459,6 @@ export default {
           if (typeof submitCallback === 'function') {
             return submitCallback(params)
           }
-          // todo 需要 结合 EditPopover 验证
           const parentSubmit = getDeepValue(this.$formParent, ['submitHandler'])
           // parentSubmit 仅对 有 注入 $formParent 的外壳组件生效
           this.$emit('submit', params, parentSubmit)

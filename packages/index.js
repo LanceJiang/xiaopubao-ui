@@ -57,6 +57,7 @@ import CustomRender from './CustomRender'
 import SearchFormModel from './SearchFormModel'
 import FormConfig from './FormConfig'
 import FormConfigModal from './FormConfigModal'
+import EditFormPopover from './EditFormPopover'
 /* import DraggableNest from './DraggableNest'
 
 import Dropdown from './Dropdown'
@@ -83,7 +84,8 @@ const components = [
   CustomRender,
   SearchFormModel,
   FormConfig,
-  FormConfigModal
+  FormConfigModal,
+  EditFormPopover
   // DraggableNest,
   // Dropdown,
   // Popover,
