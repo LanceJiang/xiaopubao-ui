@@ -79,3 +79,25 @@
     }
   }
 }
+
+// 点击触发表单编辑外壳（可结合 formConfig 使用）
+.@{prefix}edit-form_content-wrap {
+  position: relative;
+  margin: 0;
+  text-align: left;
+  list-style-type: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 2px;
+  outline: none;
+  width: 140px;
+  .footer {
+    padding-top: 10px;
+    text-align: right;
+  }
+  // formConfig 样式兼容
+  .@{prefix}form-config .footer{
+    padding-top: 0;
+    border-top: 0;
+  }
+}
