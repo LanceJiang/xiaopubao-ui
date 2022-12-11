@@ -1,6 +1,30 @@
 @import "../variables.less";
 // XpbSelect 样式
 .@{prefix}select {
+  &-disabled {
+    .@{prefix}select_box {
+      color: rgba(0, 0, 0, 0.25);
+      //background-color: #f5f5f5;
+      background-color: @input-disabled-bg;
+      cursor: not-allowed;
+      opacity: 1;
+      &:hover {
+        border-color: #d9d9d9;
+        // 若可以清空的情况下
+        .has_allowClear {
+          // 箭头
+          .@{prefix}select_arrows.show {
+            display: block;;
+          }
+
+          // 清除按钮展示
+          .@{prefix}select_clear {
+            display: none;
+          }
+        }
+      }
+    }
+  }
   &_content {
     background: #fff;
     border-radius: 2px;
@@ -49,29 +73,28 @@
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     &:hover {
+      border-color: @xpb-color-primary;
       // 若可以清空的情况下
       .has_allowClear {
         // 箭头
-        .xpb-select_arrows.show {
+        .@{prefix}select_arrows.show {
           display: none;
         }
 
         // 清除按钮展示
-        .xpb-select_clear {
+        .@{prefix}select_clear {
           opacity: 1;
           display: block;
         }
       }
-
-      border-color: @xpb-color-primary;
     }
 
 
-    .xpb-select_placeholder {
+    .@{prefix}select_placeholder {
       color: rgba(0, 0, 0, 0.45);
     }
 
-    .xpb-select_clear {
+    .@{prefix}select_clear {
       display: none;
       opacity: 0;
       line-height: 28px;
@@ -79,8 +102,8 @@
       color: rgba(0, 0, 0, 0.25)
     }
 
-    .xpb-select_operate {
-      .xpb-select_arrows {
+    .@{prefix}select_operate {
+      .@{prefix}select_arrows {
         display: block;
         transition: all 0.3s;
         color: rgba(0, 0, 0, 0.25);
@@ -92,8 +115,8 @@
       border-color: @xpb-color-primary;
       outline: 0;
       box-shadow: 0 0 0 2px fade(@xpb-color-primary, 20%);
-      .xpb-select_operate {
-        .xpb-select_arrows {
+      .@{prefix}select_operate {
+        .@{prefix}select_arrows {
           transform: rotate(180deg);
         }
       }

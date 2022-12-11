@@ -1,34 +1,14 @@
 <script lang="jsx">
 import InputNumber from 'xiaopubao-ui/packages/InputNumber'
 import InputNumberRange from 'xiaopubao-ui/packages/InputNumberRange'
+import CustomRender from 'xiaopubao-ui/packages/CustomRender'
 import XSelect from 'xiaopubao-ui/packages/Select'
 import { getDeepValue } from 'xiaopubao-ui/src/utils/index'
-const RenderExpand = {
-  props: {
-    render: Function,
-    form: {
-      type: Object,
-      required: true
-    },
-    params: {
-      type: Object,
-      required: true
-    }
-  },
-  render (h) {
-    const { form, params } = this
-    const extendsParams = {
-      form,
-      params
-    }
-    return this.render(h, extendsParams)
-  }
-}
 export default {
   name: 'XSearchFormModel',
   componentName: 'XSearchFormModel',
   components: {
-    RenderExpand,
+    CustomRender,
     XSelect,
     InputNumber,
     InputNumberRange
@@ -90,8 +70,7 @@ export default {
           </XSelect>
 
         case 'render' :
-          return <RenderExpand
-            render={item.render}
+          return <CustomRender
             form={item}
             params={(isMore ? more_searchParams : searchParams)}
           />

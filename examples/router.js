@@ -42,6 +42,18 @@ export default new Router({
       // component: () => import(/!* webpackChunkName: "table" *!/ './views/table/default.vue')
     },
     {
+      path: '/forms',
+      name: '表单',
+      component: Layout,
+      redirect: '/index',
+      // 前缀 forms-
+      children: [{
+        path: 'index',
+        name: 'forms-Default',
+        component: () => import(/* webpackChunkName: "forms" */ './views/forms/index.vue')
+      }]
+    },
+    {
       path: '/others',
       name: '其他',
       component: Layout,
@@ -53,18 +65,5 @@ export default new Router({
         component: () => import(/* webpackChunkName: "others" */ './views/others/index.vue')
       }]
     }
-    /*
-    {
-      path: '/forms',
-      name: '表单',
-      component: Layout,
-      redirect: '/index',
-      // 前缀 forms-
-      children: [{
-        path: 'index',
-        name: 'forms-Default',
-        component: () => import(/!* webpackChunkName: "forms" *!/ './views/forms/index.vue')
-      }]
-    }, */
   ]
 })

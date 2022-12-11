@@ -1,0 +1,63 @@
+@import "../variables.less";
+// FormConfig 样式
+@borderColor: #e8e8e8;
+.@{prefix}form-config {
+  position: relative;
+  .form_wrap {
+    // 弹窗内有需要自己修改对应的样式控制
+    max-height: 80vh;
+    overflow-y: auto;
+    //margin-bottom: 8px;
+  }
+  /* 隐藏formItem label */
+  .hideLabel {
+    .ant-form-item-label {
+      display: none;
+    }
+  }
+  // todo delete
+  /*.text {
+    margin-left: 10px;
+  }*/
+  .footer {
+    padding-top: 10px;
+    border-top: 1px solid @borderColor;
+    text-align: right;
+    .ant-btn + .ant-btn {
+      margin-left: 8px;
+    }
+  }
+  .ant-input-number {
+    width: 100%;
+  }
+  /*.el-form-item {
+    margin-bottom: 16px;
+  }
+  .footer {
+    display: flex;
+    //justify-content: flex-end;
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    padding: 10px 24px 0 24px;
+    border-top: 1px solid @xpb-border-color_3;
+    // 取消
+    .cancel-button {
+      //margin-right: auto;
+    }
+    // 重置
+    .reset-button {}
+    // 提交
+    .submit-button {}
+    .right-actions {
+      margin-left: auto;
+    }*/
+}
+
+// FormConfigDialog 样式 (区别于 xpb-dialog 样式以外的)
+/*.@{prefix}form-config-dialog {
+  .el-dialog__body {
+    //height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}*/

@@ -130,11 +130,12 @@ export default {
         },
         // popWidth: '400px', // 更多的弹窗 width
         forms: [
-          /* {
+          {
             visible: true, // 只要不为false 就是 展示
             isMore: false, // 只要不为true 就是 默认展示
             prop: 'input', // 提交的 params 的字段
             label: 'input', // label 标签
+            disabled: true,
             itemType: 'input' // form-item 类型
             // prepend: 'Http://', // 额外form-item配置
             // append: '.com' // 额外form-item配置
@@ -157,6 +158,7 @@ export default {
             itemType: 'xSelect', // form-item 类型
             labelKey: 'label_1',
             valueKey: 'value_1',
+            disabled: true,
             options: Array.from({ length: 20 }).map((_, i) => {
               return {
                 value_1: '选项' + i,
@@ -169,7 +171,7 @@ export default {
             // slotOption(h, { option, label }) {
             //   return label + '_____'
             // }
-            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
+            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
@@ -187,7 +189,7 @@ export default {
                 label_1: 'xSelectMore单选' + i
               }
             })
-            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
+            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
@@ -206,8 +208,6 @@ export default {
                 label_1: 'xSelect多选' + i
               }
             })
-            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
-            // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
           },
           {
@@ -225,10 +225,10 @@ export default {
                 label_1: 'xSelectMore多选' + i
               }
             })
-            /!** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 *!/
+            /** !!!! defaultValue 不再使用  如需 初始化 请在 对应的 双向绑定 对象 searchParams 中进行定义 */
             // defaultValue: 1 // eg: searchParams = {select: 1} todo delete
             // showSearch: true,
-          }, */
+          },
           {
             visible: true, // 只要不为false 就是 展示
             isMore: false, // 只要不为true 就是 默认展示

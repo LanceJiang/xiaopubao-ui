@@ -1,87 +1,94 @@
 <template>
-  <div class="xpb-select">
+  <div :class="['xpb-select', disabled ? 'xpb-select-disabled' : '']">
     <a-dropdown
       overlayClassName='ecSelect_localPopoverWrap'
       placement='bottomLeft'
-      v-model="visible"
+      v-model='visible'
       :trigger="['click']"
+      :disabled='disabled'
     >
-      <div ref="ecSelectBox" :class="['xpb-select_box', visible ? 'xpb-select_box--open' : '']" :style="{width}">
-        <div v-show='selectLabel.length<=0' class="xpb-select_placeholder">{{ placeholder }}</div>
-        <template v-if="multiple">
-          <div v-show='selectLabel.length>0' class="xpb-select_tag">
-            <template v-for="(item,i) in selectLabel">
-              <a-tag v-if="i<=tagLength-1" :key="i" :title='item' class='text-overflow_ellipsis'>{{ item }}</a-tag>
+      <div ref='ecSelectBox' :class="['xpb-select_box', visible ? 'xpb-select_box--open' : '']" :style='{width}'>
+        <div v-show='selectLabel.length<=0' class='xpb-select_placeholder'>{{ placeholder }}</div>
+        <template v-if='multiple'>
+          <div v-show='selectLabel.length>0' class='xpb-select_tag'>
+            <template v-for='(item,i) in selectLabel'>
+              <a-tag v-if='i<=tagLength-1' :key='i' :title='item' class='text-overflow_ellipsis'>{{ item }}</a-tag>
             </template>
-            <a-tag class='text-overflow_ellipsis' v-if="selectLabel.length>tagLength">+{{ selectLabel.length - tagLength }}...</a-tag>
+            <a-tag class='text-overflow_ellipsis' v-if='selectLabel.length>tagLength'>+{{ selectLabel.length - tagLength
+              }}...
+            </a-tag>
           </div>
         </template>
         <!-- 单选 -->
         <template v-else>
-          <div v-show='selectLabel.length>0' class="xpb-select_tag">
+          <div v-show='selectLabel.length>0' class='xpb-select_tag'>
             <div :title='selectLabel' class='text-overflow_ellipsis'>
               {{ selectLabel }}
             </div>
           </div>
         </template>
-        <div :class='{has_allowClear: allowClear}' class="xpb-select_operate">
+        <div :class='{has_allowClear: allowClear}' class='xpb-select_operate'>
           <span :class="['xpb-select_arrows', selectLabel.length ? 'show' : '']">
-            <a-icon type="down" />
+            <a-icon type='down' />
           </span>
-          <span class="xpb-select_clear" v-show="selectLabel.length" @click.stop="handleClearAll">
-            <a-icon type="close-circle" theme='filled' />
+          <span class='xpb-select_clear' v-show='selectLabel.length' @click.stop='handleClearAll'>
+            <a-icon type='close-circle' theme='filled' />
           </span>
         </div>
       </div>
-      <div class="xpb-select_content" slot="overlay" :style="{width: local_overlayWidth}">
-        <template v-if="!options.length">
+      <div class='xpb-select_content' slot='overlay' :style='{width: local_overlayWidth}'>
+        <template v-if='!options.length'>
           <NoData size='mini' />
         </template>
         <template v-else>
-          <div class="xpb-select-search">
-            <a-input ref="searchInput" :value="searchTxt" @keyup="searchTxtInput" placeholder="搜索" type="text" auto-focus>
-              <a-icon slot="suffix" type="search" style="color: rgba(0,0,0,.45)" />
+          <div class='xpb-select-search'>
+            <a-input ref='searchInput' :value='searchTxt' @keyup='searchTxtInput' placeholder='搜索' type='text'
+                     auto-focus>
+              <a-icon slot='suffix' type='search' style='color: rgba(0,0,0,.45)' />
             </a-input>
           </div>
-          <div v-if="!computedOptions.length" class="xpb-select-search-none">
+          <div v-if='!computedOptions.length' class='xpb-select-search-none'>
             无搜索结果
           </div>
           <template v-else>
             <!-- 仅在 多选情况下生效 -->
-            <div v-if="multiple" v-show='computedOptions.length' class="xpb-select_list_item">
-              <a-checkbox :checked="isAll" @change="checkAllHandler">全选</a-checkbox>
+            <div v-if='multiple' v-show='computedOptions.length' class='xpb-select_list_item'>
+              <a-checkbox :checked='isAll' @change='checkAllHandler'>全选</a-checkbox>
             </div>
             <!--     28 * 8 -> 224 -->
-            <vxe-list :height='computedOptions.length > 8 ? "224" : "auto"' class="xpb-select_list"
-                      :scrollY="{gt: 10}"
-                      :data="computedOptions">
-              <template #default="{ items }">
+            <vxe-list :height='computedOptions.length > 8 ? "224" : "auto"' class='xpb-select_list'
+                      :scrollY='{gt: 10}'
+                      :data='computedOptions'>
+              <template #default='{ items }'>
                 <!-- 多选 -->
-                <template v-if="multiple">
+                <template v-if='multiple'>
                   <div
-                    class="xpb-select_list_item text-overflow_ellipsis"
-                    v-for="(item, idx) in items"
-                    :key="idx"
-                    :title="item[labelKey]"
-                    :data-id="item[valueKey]"
+                    class='xpb-select_list_item text-overflow_ellipsis'
+                    v-for='(item, idx) in items'
+                    :key='idx'
+                    :title='item[labelKey]'
+                    :data-id='item[valueKey]'
                   >
+                    <!--                      <span slot="label" slot-scope="{ value }" style="color: red">{{ value }}</span>-->
+<!--                    <span #label="{ value }" style="color: red">{{ value }}</span>-->
                     <a-checkbox
-                      :checked="selected_value.includes(item[valueKey])"
-                      @change="e =>onCheckboxChange(e, item[valueKey])"
+                      :checked='selected_value.includes(item[valueKey])'
+                      @change='e =>onCheckboxChange(e, item[valueKey])'
                     >
+<!--                      {renderSelectOption.call(this, form.slotOption, option, label)}-->
                       {{ item[labelKey] }}
                     </a-checkbox>
                   </div>
                 </template>
                 <!-- 单选 -->
                 <template v-else>
-                  <a-radio-group class="xpb-select_radioWrap" v-model="selected_value" @change="submitHandler">
+                  <a-radio-group class='xpb-select_radioWrap' v-model='selected_value' @change='submitHandler'>
                     <a-radio
-                      class="xpb-select_list_item text-overflow_ellipsis"
-                      v-for="(item, idx) in items"
-                      :key="idx"
-                      :title="item[labelKey]"
-                      :value="item[valueKey]">
+                      class='xpb-select_list_item text-overflow_ellipsis'
+                      v-for='(item, idx) in items'
+                      :key='idx'
+                      :title='item[labelKey]'
+                      :value='item[valueKey]'>
                       {{ item[labelKey] }}
                     </a-radio>
                   </a-radio-group>
@@ -89,9 +96,9 @@
               </template>
             </vxe-list>
           </template>
-          <div v-if="multiple" class="xpb-select_footer" :class="{'shadow': footerShadow}">
-            <a-button size='small' @click="cancelHandler" style="margin-right:8px">取消</a-button>
-            <a-button size='small' @click='submitHandler' type="primary">确定</a-button>
+          <div v-if='multiple' class='xpb-select_footer' :class="{'shadow': footerShadow}">
+            <a-button size='small' @click='cancelHandler' style='margin-right:8px'>取消</a-button>
+            <a-button size='small' @click='submitHandler' type='primary'>确定</a-button>
           </div>
         </template>
       </div>
@@ -100,8 +107,9 @@
 </template>
 <script>
 import { debounce } from 'xiaopubao-ui/src/utils/index'
+import { renderSelectOption } from 'xiaopubao-ui/src/utils/slotsUtils'
 import NoData from 'xiaopubao-ui/packages/NoData'
-
+console.log(renderSelectOption, 'renderSelectOption 自定义渲染')
 const initSelectedHandler = (_this) => {
   // 多选 || 单选
   if (_this.multiple) {
@@ -124,16 +132,6 @@ export default {
     value: {
       // type: [String, Number, Array],
     },
-
-    // /**
-    //  * 模式
-    //  * default 默认单选
-    //  * multiple 多选 （同步ant select 配置）
-    //  */
-    // mode: {
-    //   type: Boolean,
-    //   default: 'default' // multiple
-    // }, // 是否多选
     multiple: Boolean,
     allowClear: {
       type: Boolean,
@@ -154,6 +152,10 @@ export default {
     options: {
       required: true,
       type: Array
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     valueKey: {
       type: String,
@@ -187,10 +189,7 @@ export default {
     }
   },
   computed: {
-    // multiple () {
-    //   return this.mode === 'multiple'
-    // },
-    local_overlayWidth () {
+    local_overlayWidth() {
       return this.overlayWidth || this.width
     },
     // 页面显示的文本
@@ -222,7 +221,10 @@ export default {
   watch: {
     visible(val) {
       val && this.$nextTick().then(_ => {
-        (this.$refs.searchInput || { focus: () => {} }).focus()
+        (this.$refs.searchInput || {
+          focus: () => {
+          }
+        }).focus()
       })
     },
     value: {

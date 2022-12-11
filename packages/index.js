@@ -51,15 +51,16 @@ import NoData from './NoData'
 import Table from './Table'
 import InputNumber from './InputNumber'
 import InputNumberRange from './InputNumberRange'
+import TextArea from './TextArea'
 import Select from './Select'
+import CustomRender from './CustomRender'
 import SearchFormModel from './SearchFormModel'
-/* import DraggableNest from './DraggableNest'
 import FormConfig from './FormConfig'
+/* import DraggableNest from './DraggableNest'
 import FormConfigDialog from './FormConfigDialog'
 
 import Dropdown from './Dropdown'
 import Popover from './Popover'
-import CustomRender from './CustomRender'
 
 import SearchFilterDrawer from './SearchFilterDrawer' */
 // pdf 预览
@@ -77,10 +78,12 @@ const components = [
   Table,
   InputNumber,
   InputNumberRange,
+  TextArea,
   Select,
-  SearchFormModel
+  CustomRender,
+  SearchFormModel,
+  FormConfig
   // DraggableNest,
-  // FormConfig,
   // FormConfigDialog,
   // Dropdown,
   // Popover,
