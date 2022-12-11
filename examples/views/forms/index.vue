@@ -47,10 +47,10 @@
         </XFormConfig>
       </a-modal>
     </div>
-<!--    <div class="common_title">x-form-config-modal 表单弹窗</div>
+    <div class="common_title">x-form-config-modal 表单弹窗</div>
     <div class="content">
       <a-button @click="modalVisible2 = true">打开 弹窗</a-button>
-      <XFormConfigDialog
+      <XFormConfigModal
         v-if="modalVisible2"
         title="x-form-config-modal 表单弹窗"
         :visible.sync="modalVisible2"
@@ -62,10 +62,10 @@
         @submit="formSubmit"
       >
         <template #xSelectSlot="{option, label}">
-          <div style="background: #A0AAB7;">{{label}} + {{ option.value_1 }}</div>
+          <div style="background: green;">{{label}} + {{ option.value_1 }}</div>
         </template>
-      </XFormConfigDialog>
-    </div>-->
+      </XFormConfigModal>
+    </div>
   </div>
 </template>
 

@@ -54,10 +54,28 @@
 }
 
 // FormConfigDialog 样式 (区别于 xpb-dialog 样式以外的)
-/*.@{prefix}form-config-dialog {
-  .el-dialog__body {
-    //height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.@{prefix}form-config-modal {
+  .ant-modal-body {
+    padding-top: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    //max-height: calc(100vh - 180px);
+    //overflow: auto;
   }
-}*/
+  .@{prefix}form-config .form_wrap {
+    max-height: calc(100vh - 234px);
+    padding: 0 24px;
+  }
+  // 额外元素存放外壳样式
+  .extra-wrap {
+    padding: 0 24px;
+  }
+  .footer {
+    padding: 10px 24px 0 24px;
+    border-top: 1px solid #e8e8e8;
+    text-align: right;
+    .ant-btn + .ant-btn {
+      margin-left: 8px;
+    }
+  }
+}
