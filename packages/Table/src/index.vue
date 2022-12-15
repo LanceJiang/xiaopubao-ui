@@ -78,7 +78,8 @@ const render = function(h) {
     localTableOptions,
     list,
     tableOptions,
-    searchParams
+    searchParams,
+    columnsConfig
   } = this
   const tableOn = {
     'cell-click': ($event) => this.$emit('cellClick', $event), // args: { row, rowIndex, column } 当前点选即会触发
@@ -129,15 +130,15 @@ const render = function(h) {
             </a-tooltip>
           }
           {
-            toolsIcon.includes('custom') && <TableColumnsPopover
+            columnsConfig?.columns?.length ? <TableColumnsPopover
               ref='tableColumnsPopover'
-              props={this.columnsConfig}
+              props={columnsConfig}
               value={this.checkedOptions}
               on={this.columnsPopoverOn}
             >
               {/* submit = { this.customColumnsSubmit } */}
               <a-button class='custom-btn'>自定义列</a-button>
-            </TableColumnsPopover>
+            </TableColumnsPopover> : ''
           }
         </div>
       </vxe-toolbar>
@@ -188,7 +189,7 @@ const render = function(h) {
     {this.$slots.default}
   </div>
 }
-console.error(render, 'render')
+// console.error(render, 'render')
 export default {
   name: 'XTable',
   componentName: 'XTable',
@@ -310,12 +311,12 @@ export default {
       default: () => ({})
     },
     /**
-     * table 表格的工具栏 常用icon 展示数组 [刷新, 自定义配置列]
+     * table 表格的工具栏 常用icon 展示数组 [刷新] // , 自定义配置列 若有配置 columnsConfig columns长度 > 0 即可
      */
     toolsIcon: {
       type: Array,
       // default: () => ['refresh', 'custom']
-      default: () => ['refresh', 'custom']
+      default: () => ['refresh']
     },
     // 选中行的数据
     // curRow: {
@@ -873,7 +874,7 @@ export default {
     :options='options' // 针对XTable 这个组件本身 自定义 的相关配置
     :tableOptions="tableOptions" // table相关的 配置对象
     :columns="columns" // 需要展示的列配置 // 参考上面的 columns
-    :toolsIcon="toolsIcon" // 列表工具栏按钮展示控制数组  ['refresh', 'custom']
+    :toolsIcon="toolsIcon" // 列表工具栏按钮展示控制数组  ['refresh']
     @downloadHandler="downloadHandler" 下载按钮操作函数
     @refreshHandler="refreshHandler" 刷新功能额外操作 (已经内置刷新列表功能 page:1)
     :columnsConfig="columnsConfig" // 自定义配置列表 展示控制 { list_type: 'ListAsinIndex1_test_123456', columnsOptions: []}

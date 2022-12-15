@@ -1,6 +1,6 @@
 {
   "name": "xiaopubao-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "vue-cli3构建基于ant-design-vue & vxe-table二次封装库",
   "main": "lib/xiaopubao-ui.umd.min.js",
   "keywords": [
