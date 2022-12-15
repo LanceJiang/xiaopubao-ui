@@ -47,7 +47,7 @@
                   >
 <!--                    :options="v.children"-->
                     <a-checkbox v-for='option of v.children' :key='option.field' :value="option.field">
-                      {{ option.t_label ? t(option.t_label) : option.label }}
+                      {{ t(v.title) }}
                     </a-checkbox>
                   </a-checkbox-group>
                 </div>
@@ -61,7 +61,7 @@
             >
 <!--              :options="flatColumns"-->
               <a-checkbox v-for='v of flatColumns' :key='v.field' :value="v.field">
-                {{ v.t_label ? t(v.t_label) : v.label }}
+                {{ t(v.title) }}
               </a-checkbox>
 <!--              checkbox-group-->
             </a-checkbox-group>
@@ -139,14 +139,14 @@ const Draggable_Nest = {
       move={this.move}>
       <transition-group>
         {this.realValue.map((v, index) => {
-          const _label = v.t_label ? t(v.t_label) : v.label
+          const _title = t(v.title)
           return <div
             class="list-group-item"
             key={v.field}
           >
             <div class={['itemWrap', `${v.fixed ? 'disabled' : ''}`]}>
               <span class="xpb-iconfont xpb-drag-el dragEl"/>
-              <span class="label_txt" title={_label}>{ _label }</span>
+              <span class="label_txt" title={_title}>{ _title }</span>
               <a-icon onClick={this.delCheckedColumn.bind(null, this.realValue, index)} class="delEl" type="close" />
               {
                 (this.level === 0 && v._fixed) ? <span class='disabled_fixed' onClick={this.setFixed.bind(null, v, this.level)}>置{v._fixed === 'left' ? '底' : '顶'}</span>
@@ -203,11 +203,11 @@ export default {
       default: () => []
       /**
        * eg: [
-       * { label: column的标题【String】,
+       * { title: column的标题【String】,
        *   field: column的field【String】(value),
        *   fixed: 控制column是否固定fixed【Boolean】 (disabled),
        *   _fixed: 标记column是否有置顶置底置换功能【left/right】,
-       *   dynamic: 标记column是否根据本地的column进行label替换【Boolean】}
+       *   dynamic: 标记column是否根据本地的column进行title替换【Boolean】}
        * ]
        */
     },
@@ -215,8 +215,8 @@ export default {
       // 类 columns 配置
       type: Array
       // default: () => []
-      // todo dynamic: 标记column是否根据本地的column进行label替换【Boolean】
-      /* type Options = { t_label: string; label: string; field: string; fixed: boolean|string }[] */
+      // todo dynamic: 标记column是否根据本地的column进行title替换【Boolean】
+      /* type Options = { title: string; field: string; fixed: boolean|string }[] */
     },
     // 没有存储数据时 系统给予的默认配置
     defaultCheckedOptions: {
@@ -383,7 +383,7 @@ export default {
         // 如果是动态获取的column 配置 通过 dynamic 标识 使用本地最新的配置
         _data.map(v => {
           if (v.dynamic) {
-            v.label = (this.flatColumns.find(_v => v.field === _v.field) || {}).label || v.label
+            v.title = (this.flatColumns.find(_v => v.field === _v.field) || {}).title || v.title
           }
         })
         checkedOptions = _data
@@ -419,7 +419,7 @@ export default {
           // 如果是动态获取的column 配置 通过 dynamic 标识 使用本地最新的配置
           _data.map(v => {
             if (v.dynamic) {
-              v.label = (this.flatColumns.find(_v => v.field === _v.field) || {}).label || v.label
+              v.title = (this.flatColumns.find(_v => v.field === _v.field) || {}).title || v.title
             }
           })
           checkedOptions = _data

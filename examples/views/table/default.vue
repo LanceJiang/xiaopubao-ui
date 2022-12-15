@@ -20,16 +20,6 @@
           v-model="formParams"
           :deleteTag="deleteTag">
         </x-search-form-model>
-<!--        <a-input
-          class="xpb-input-search"
-          v-model="formParams.pattern"
-          size="default"
-          :placeholder="$t('outboundOrder.filter.pattern.placeholder')"
-          clearable
-          @keyup.enter.native="updateParams"
-        >
-          <i slot="suffix" class="el-input__icon el-icon-search" @click="updateParams"/>
-        </a-input>-->
       </template>
       <template #top>
         <!-- 按钮集合 -->
@@ -37,26 +27,26 @@
           <template v-if="true">
             <a-tooltip
               placement="top"
-              :content="$t('outboundOrder.btn.CreateBatchTip')"
+              :content="$t('outboundOrder.btn.view')"
             >
               <a-button
                 type="primary"
                 :class="{ 'is-disabled_test': true }"
               >
-                {{ $t('outboundOrder.btn.CreateBatch') }}
+                {{ $t('outboundOrder.btn.view') }}
               </a-button>
             </a-tooltip>
 
             <a-button
-              style="margin-right: 10px"
+              style="margin: 0 10px"
             >
-              {{ $t('outboundOrder.btn.BulkPicking') }}
+              {{ $t('outboundOrder.btn.review') }}
             </a-button>
           </template>
 <!--          :disabled="!selectList.length"-->
           <a-dropdown>
             <a-button>
-              {{ $t('outboundOrder.btn.Print') }}
+              {{ $t('outboundOrder.btn.review') }}
               <i class="el-icon-arrow-down el-icon--right"></i>
             </a-button>
             <a-dropdown-menu slot="dropdown">
@@ -487,7 +477,7 @@ export default {
         // 虚拟滚动 模式配置 (建议使用)
         scrollY: { mode: 'wheel' }
       },
-      dropdownList: ['PickingList', 'PackingList'],
+      dropdownList: ['view', 'review'],
       // 列配置对象
       curColumnsConfig: {
         // 所有的 columns 配置
@@ -495,125 +485,7 @@ export default {
         // 默认展示配置
         defaultCheckedOptions
       },
-      checkedOptions: JSON.parse(JSON.stringify(checkedOptions)),
-      // todo  后续 对于新增的搜索类型可能有需要参照用到
-      filterOptions: [
-        {
-          label: 'Test',
-          key: 'test',
-          type: 'radio',
-          // slot: 'checkbox',
-          options: [
-            { label: 'test', value: 'test' },
-            { label: 'UPS', value: 'abc' },
-            { label: 'Pitnet Bowers', value: 'PB' }
-          ],
-          is_hide: true
-        },
-        {
-          label: 'Checkbox',
-          key: 'Checkbox',
-          type: 'checkbox',
-          // is_hidden_selectAll: true,
-          // slot: 'checkbox',
-          options: [
-            { label: 'Fedex', value: 'FEDEX' },
-            { label: 'UPS', value: 'UPS' },
-            { label: 'Pitnet Bowers', value: 'PB' },
-            { label: 'STAMPS', value: '1' }
-          ]
-        },
-        {
-          label: 'Amount Range',
-          key: 'Amount',
-          type: 'amount-range',
-          date_options: {
-            min: 0,
-            max: 1
-          }
-        },
-        {
-          label: 'Number Range',
-          key: 'Number',
-          type: 'number-range',
-          date_options: {
-            min: -1,
-            max: 0
-          }
-        },
-        {
-          label: 'Picker',
-          key: 'Picker',
-          type: 'date-picker',
-          date_options: {
-            type: 'daterange'
-          }
-        },
-        {
-          label: 'Select',
-          key: 'Select',
-          type: 'select',
-          options: [
-            { label: 'Fedex', value: 'FEDEX' },
-            { label: 'UPS', value: 'UPS' },
-            { label: 'Pitnet Bowers', value: 'PB' },
-            { label: 'STAMPS', value: 'STAMPS' }
-          ],
-          is_button: true
-        },
-        {
-          label: 'Radio',
-          key: 'Radio',
-          type: 'radio',
-          options: [
-            { label: 'Fedex', value: 'FEDEX' },
-            { label: 'UPS', value: 'UPS' },
-            { label: 'Pitnet Bowers', value: 'PB' },
-            { label: 'STAMPS', value: 'STAMPS' },
-            { label: 'Fedex', value: 'FEDEX1' },
-            { label: 'UPS', value: 'UPS1' },
-            { label: 'Pitnet Bowers', value: 'PB1' },
-            { label: 'STAMPS', value: 'STAMPS1' },
-            {
-              label: 'Range',
-              value: 'Range',
-              date_options: {
-                min: -99999,
-                max: 99999
-              },
-              range_data: this.radio_data, // 范围的数据
-              range: true
-            }
-          ],
-          is_button: true
-        },
-        {
-          label: '1234',
-          key: '1234567',
-          type: 'radio',
-          options: [
-            { label: 'Fedex', value: 'FEDEX' },
-            { label: 'UPS', value: 'UPS' },
-            { label: 'Pitnet Bowers', value: 'PB' },
-            { label: 'STAMPS', value: 'STAMPS' },
-            { label: 'Fedex', value: 'FEDEX1' },
-            { label: 'UPS', value: 'UPS1' },
-            { label: 'Pitnet Bowers', value: 'PB1' },
-            { label: 'STAMPS', value: 'STAMPS1' },
-            {
-              label: 'Range',
-              value: 'Range',
-              date_options: {
-                min: -99999,
-                max: 99999
-              },
-              range_data: this.radio_data, // 范围的数据
-              range: true
-            }
-          ],
-          is_button: true
-        }
-      ]
+      checkedOptions: JSON.parse(JSON.stringify(checkedOptions))
     }
   },
   computed: {
@@ -627,7 +499,7 @@ export default {
       const columns = this.curColumnsConfig.columns
       if (!checkedOptions.length) return columns
       return checkedOptions.map((v) => {
-        const cur = columns.find((column) => column.prop === v.prop)
+        const cur = columns.find((column) => column.field === v.field)
         if (cur) {
           const fixedFlag = cur.fixed
           if (fixedFlag) {
@@ -753,9 +625,9 @@ export default {
 </script>
 
 <style scoped lang="less">
-//.pageWrap {
-//  overflow: auto;
-//}
+.pageWrap {
+  overflow: auto;
+}
 // 其他样式
 .local_table {
   padding: 0 12px;

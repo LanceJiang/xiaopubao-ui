@@ -2,13 +2,13 @@
 <div class='flex-column-page-wrap pageWrap'>
   <vxe-toolbar>
     <template #buttons>
-      <vxe-button @click="loadList(50)">50条</vxe-button>
-      <vxe-button @click="loadList(100)">100条</vxe-button>
-      <vxe-button @click="loadList(1000)">1k条</vxe-button>
-      <vxe-button @click="loadList(10000)">1w条</vxe-button>
-      <vxe-button @click="loadList(50000)">5w条</vxe-button>
-      <vxe-button @click="loadList(100000)">10w条</vxe-button>
-      <vxe-button @click="loadList(200000)">20w条</vxe-button>
+      <a-button @click="loadList(50)">50条</a-button>
+      <a-button @click="loadList(100)">100条</a-button>
+      <a-button @click="loadList(1000)">1k条</a-button>
+      <a-button @click="loadList(10000)">1w条</a-button>
+      <a-button @click="loadList(50000)">5w条</a-button>
+      <a-button @click="loadList(100000)">10w条</a-button>
+      <a-button @click="loadList(200000)">20w条</a-button>
     </template>
   </vxe-toolbar>
   <div class='vxeTableParentEl'>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import VXETable from 'vxe-table'
 import i18n from '@/locales'
 import { getDeepValue, xeUtils } from 'xiaopubao-ui/src/utils/index'
 const slotDefault = ({ row, column }, h) => {
@@ -168,11 +167,9 @@ export default {
         const startTime = Date.now()
         if (xTable) {
           this.list = data
-          console.log(`用时${Date.now() - startTime}毫秒`, VXETable)
-          // this.$refs.vxeTable.reloadData(data).then(() => {
-          //   VXETable.modal.message({ content: `渲染 ${size} 行，用时 ${Date.now() - startTime}毫秒`, status: 'info' })
+          // console.log(`用时${Date.now() - startTime}毫秒`)
+          this.$message.success(`用时${Date.now() - startTime}毫秒`)
           this.loading = false
-          // })
         }
       })
     },

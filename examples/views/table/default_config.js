@@ -10,8 +10,8 @@ const slot_user = (scope, h) => {
 }
 
 const userConfig = {
-  t_label: `${tPrefix}user`,
-  prop: 'local_user',
+  title: `${tPrefix}user`,
+  // prop: 'local_user',
   field: 'local_user', // to prop
   /** 渲染自定义 可以使用 slots  && formatter */
   slots: {
@@ -43,17 +43,13 @@ export const columnSortOptions = [
   }
 ]
 const testColumns = Array.from({ length: 20 }).map((_, i) => ({
-  label: `${tPrefix}test_${i}`,
   title: `${tPrefix}test_${i}`, // todo
-  prop: `test_${i}`,
   field: `test_${i}`
 }))
 export const columns = [
   userConfig,
   {
-    t_label: `${tPrefix}orderNo`, // todo
-    title: 'orderNo', // todo  同 t_label 处理方式
-    prop: 'orderNo',
+    title: `${tPrefix}orderNo`, // todo  同 t_label 处理方式
     field: 'orderNo',
     minWidth: '220px',
     // 用户提示配置
@@ -70,10 +66,7 @@ export const columns = [
     }
   },
   {
-    // t_label: `${tPrefix}orderNo`, // todo
-    t_label: `value`, // todo
     title: 'testVal', // todo  同 t_label 处理方式
-    prop: 'value',
     field: 'value',
     minWidth: '220px',
     // sortable: true,
@@ -108,10 +101,7 @@ export const columns = [
   },
   ...testColumns,
   {
-    t_label: 'xpb.table.action',
     title: 'xpb.table.action', // todo  同 t_label 处理方式
-    // label: '测试的 action label 非 t_label',
-    prop: 'action',
     field: 'action',
     slots: {
       default: 'action'
